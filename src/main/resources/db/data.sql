@@ -10,3 +10,9 @@ VALUES (1, '우리집', '010-1004-5005', '서울시 강남구 역삼동', '123-4
 
 INSERT INTO Address (user_id, address_name, phone_number, main_address, sub_address, zip_code, is_deleted, is_default)
 VALUES (2, '회사', '010-3341-6445', '경기도 성남시 분당구 ', '333-333번지', 53815, 0, 1);
+
+INSERT INTO Address (user_id, address_name, phone_number, main_address, sub_address, zip_code, is_deleted, is_default)
+VALUES (1, '여기여기', '010-1004-5005', '천안', '123-456번지', 12345, 0, 0);
+
+INSERT INTO Address (user_id, address_name, phone_number, main_address, sub_address, zip_code, is_deleted, is_default)
+VALUES (1, '저기저기기', '010-1004-5005', '천안', '123-456번지', 12345, 0, 0);

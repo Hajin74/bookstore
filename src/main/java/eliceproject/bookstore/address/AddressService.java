@@ -2,13 +2,14 @@ package eliceproject.bookstore.address;
 
 import eliceproject.bookstore.user.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AddressService {
@@ -26,15 +27,12 @@ public class AddressService {
     @Transactional(readOnly = true)
     public Address findById(Long addressId) {
         return addressRepository.findById(addressId)
-                .orElseThrow(() -> new IllegalArgumentException("Address not found by Id : " + addressId));
+                .orElseThrow(() -> new IllegalArgumentException("Address not found with id : " + addressId));
     }
 
     @Transactional(readOnly = true)
-    public List<AddressDTO> findByUser(Long userId) {
-        List<Address> addressList = addressRepository.findByUserId(userId);
-        return addressList.stream()
-                .map(AddressDTO::toDTO)
-                .collect(Collectors.toList());
+    public List<Address> findByUser(Long userId) {
+        return addressRepository.findByUserId(userId);
     }
 
     @Transactional(readOnly = true)
@@ -43,14 +41,25 @@ public class AddressService {
         return addressList.stream()
                 .map(AddressDTO::toDTO)
                 .collect(Collectors.toList());
-
     }
 
     @Transactional
     public AddressDTO update(Long addressId, AddressDTO addressDTO) {
         Address findAddress = findById(addressId);
-        findAddress.changeAddress(addressDTO.getAddressName(), addressDTO.getMainAddress(), addressDTO.getSubAddress(), addressDTO.isDefault());
+        findAddress.changeAddress(addressDTO);
         return AddressDTO.toDTO(findAddress);
+    }
+
+    @Transactional
+    public void setDefault(Long addressId) {
+        Address defaultAddress = findById(addressId);
+        defaultAddress.setDefault();
+    }
+
+    @Transactional
+    public void unsetDefault(Long addressId) {
+        Address defaultAddress = findById(addressId);
+        defaultAddress.unsetDefault();
     }
 
     @Transactional

@@ -52,11 +52,47 @@ public class Address {
                 .build();
     }
 
-    public void changeAddress(String addressName, String mainAddress, String subAddress, Boolean isDefault) {
-        this.addressName = (addressName == null || addressName.isBlank()) ? this.addressName : addressName;
-        this.mainAddress = (mainAddress == null || mainAddress.isBlank()) ? this.mainAddress : mainAddress;
-        this.subAddress = (subAddress == null || subAddress.isBlank()) ? this.subAddress : subAddress;
-        this.isDefault = (isDefault == null) ? this.isDefault : isDefault;
+    public void changeAddress(AddressDTO addressDTO) {
+        String newAddressName = addressDTO.getAddressName();
+        String newMainAddress = addressDTO.getMainAddress();
+        String newSubAddress = addressDTO.getSubAddress();
+        boolean newIsDefault = addressDTO.isDefault();
+
+        if (newAddressName != null && !newAddressName.isBlank()) {
+            this.addressName = newAddressName;
+        }
+        if (newMainAddress != null && !newMainAddress.isBlank()) {
+            this.mainAddress = newMainAddress;
+        }
+        if (newSubAddress != null && !newSubAddress.isBlank()) {
+            this.subAddress = newSubAddress;
+        }
+        if (newIsDefault) {
+            setDefault();
+        }
+    }
+
+    public void setDefault() {
+        this.isDefault = true;
+    }
+
+    public void unsetDefault() {
+        this.isDefault = false;
+    }
+
+    @Override
+    public String toString() {
+        return "Address{" +
+                "id=" + id +
+                ", user=" + user +
+                ", addressName='" + addressName + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", mainAddress='" + mainAddress + '\'' +
+                ", subAddress='" + subAddress + '\'' +
+                ", zipCode=" + zipCode +
+                ", isDeleted=" + isDeleted +
+                ", isDefault=" + isDefault +
+                '}';
     }
 
 }
