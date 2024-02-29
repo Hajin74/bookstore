@@ -1,0 +1,115 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.contents-wrap {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.side {
+    width: 25%;
+    text-align: center;
+    padding: 50px 0;
+}
+
+.side .profile {
+    margin-bottom: 20px;
+}
+
+.side .nickname {
+    margin-bottom: 10px;
+}
+
+.side button {
+    background-color: white;
+    border: 1px solid #D9D9D9;;
+    border-radius: 5px;
+    padding: 5px 15px;
+}
+
+.main {
+    width: 75%;
+    padding: 50px 40px 50px 0;
+}
+
+.order-list-wrap {
+    border: 1px solid #D9D9D9;
+    border-radius: 10px;
+    padding: 30px;
+}
+
+.order-list-wrap > span {
+    color: #484848;
+    font-size: 18px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-bottom: 1px solid black;
+}
+
+.order-list-meta-wrap {
+    display: flex;
+    align-items: center;
+    margin-top: 30px;
+}
+
+#order-number {
+    color: black;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+#order-detail {
+    color: #484848;
+    font-size: 13px;
+    font-weight: 400;
+    margin-left: 30px;
+}
+
+.order-list-contents-wrap {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.order-list-contents-wrap > div {
+    display: flex;
+}
+
+.order-list-contents {
+    list-style-type: none;
+    margin-left: 20px;
+    font-size: 11px;
+    font-weight: 400;
+}
+
+.order-list-deliver-wrap {
+    margin-left: 20px;
+}
+
+.order-list-price {
+    color: black;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.order-list-deliver-wrap > button {
+    background-color: #B0C2FF;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.deliver-status {
+    color: black;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.deliver-status-date {
+    color: #484848;
+    font-size: 12px;
+    font-weight: 400;
+}
