@@ -1,12 +1,12 @@
 package eliceproject.bookstore.address;
 
+import eliceproject.bookstore.common.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 
 @Slf4j
 @RestController
@@ -16,39 +16,65 @@ public class AddressController {
 
     private final AddressService addressService;
 
-    /* 주소지 전체조회 */
-    @GetMapping
-    public ResponseEntity<List<AddressDTO>> getAllAddress() {
-        List<AddressDTO> addressDTOList = addressService.findAll();
-        return new ResponseEntity<>(addressDTOList, HttpStatus.OK);
-    }
-
     /* 주소지 등록 */
     @PostMapping
-    public ResponseEntity<AddressDTO> addAddress(@RequestBody AddressDTO addressDTO) {
-        return new ResponseEntity<>(addressService.save(addressDTO), HttpStatus.OK);
+    public ApiResponse<Address> addAddress(@RequestBody Address address) {
+        try {
+            return ApiResponse.success(addressService.create(address), "주소지 등록에 성공했습니다.");
+        } catch (Exception e) {
+            log.error("주소지 등록에 실패했습니다.", e);
+            return ApiResponse.fail(500, null, "주소지 등록에 실패했습니다.");
+        }
     }
 
-    /* 주소지 수정 */
-    @PatchMapping("/{addressId}")
-    public ResponseEntity<AddressDTO> updateAddress(@PathVariable Long addressId, @RequestBody AddressDTO addressDTO) {
-        AddressDTO updateAddressDTO = addressService.update(addressId, addressDTO);
-        return new ResponseEntity<>(updateAddressDTO, HttpStatus.OK);
+    /* 주소지 전체 조회 */
+    @GetMapping
+    public ApiResponse<List<Address>> getAllAddress() {
+        try {
+            List<Address> addressList = addressService.findAll();
+            return ApiResponse.success(addressList, "주소지 전체 조회에 성공했습니다.");
+        } catch (Exception e) {
+            log.error("주소지 전체 조회에 실패했습니다.", e);
+            return ApiResponse.fail(500, null, "주소지 전체 조회에 실패했습니다.");
+        }
     }
 
     /* 기본 주소지 설정 및 나머지는 기본 주소지 해제 */
     @PutMapping("/{addressId}/default")
-    public ResponseEntity<String> setDefaultAddress(@PathVariable Long addressId) {
-        Long userId = 1L; // 임의로 정함, 나중에는 로그인 후 사용자 식별해서 보낼 것
-        addressService.setDefault(userId, addressId);
-        return new ResponseEntity<>("기본 배송지 설정이 되었습니다.", HttpStatus.OK);
+    public ApiResponse<Address> setDefaultAddress(@PathVariable Long addressId) {
+        try {
+            Long userId = 1L;
+            addressService.setDefault(userId, addressId);
+            Address defaultAddress = addressService.findById(addressId);
+            return ApiResponse.success(defaultAddress, "기본 주소시 설정에 성공했습니다.");
+        } catch (Exception e) {
+            log.error("기본 주소지 설정에 실패했습니다.", e);
+            return ApiResponse.fail(500, null, "기본 주소지 설정에 실패했습니다.");
+        }
     }
 
-    /* 주소지 삭제 */
+    /* 주소시 수정 */
+    @PatchMapping("/{addressId}")
+    public ApiResponse<Address> updateAddress(@PathVariable Long addressId, @RequestBody Address address) {
+        try {
+            Address updateAddress = addressService.update(addressId, address);
+            return ApiResponse.success(updateAddress, "주소지 수정에 성공했습니다.");
+        } catch (Exception e) {
+            log.error("주소시 수정에 실패했습니다.", e);
+            return ApiResponse.fail(500, null, "주소시 수정에 실패했습니다.");
+        }
+    }
+
+    /* 주소시 삭제 */
     @DeleteMapping("/{addressId}")
-    public ResponseEntity<String> deleteAddress(@PathVariable Long addressId) {
-        addressService.delete(addressId);
-        return new ResponseEntity<>("삭제 되었습니다.", HttpStatus.OK);
+    public ApiResponse<Object> deleteAddress(@PathVariable Long addressId) {
+        try {
+            addressService.delete(addressId);
+            return ApiResponse.success(null, "주소지 삭제에 성공했습니다.");
+        } catch (Exception e) {
+            log.error("주소시 삭제에 실패했습니다.", e);
+            return ApiResponse.fail(500, null, "주소시 삭제에 실패했습니다.");
+        }
     }
 
 }

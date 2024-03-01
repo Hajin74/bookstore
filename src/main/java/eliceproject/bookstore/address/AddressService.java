@@ -1,76 +1,24 @@
 package eliceproject.bookstore.address;
 
-import eliceproject.bookstore.user.UserRepository;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
-@Slf4j
-@Service
-@RequiredArgsConstructor
-public class AddressService {
+public interface AddressService {
 
-    private final AddressRepository addressRepository;
-    private final UserRepository userRepository;
+    Address create(Address address);
 
-    @Transactional
-    public AddressDTO save(AddressDTO addressDTO) {
-        Address address = Address.toEntity(addressDTO, userRepository);
-        Address savedAddress = addressRepository.save(address);
-        return AddressDTO.toDTO(savedAddress);
-    }
+    List<Address> findAll();
 
-    @Transactional(readOnly = true)
-    public Address findById(Long addressId) {
-        return addressRepository.findById(addressId)
-                .orElseThrow(() -> new IllegalArgumentException("Address not found with id : " + addressId));
-    }
+    List<Address> findByUserId(Long userId);
 
-    @Transactional(readOnly = true)
-    public List<Address> findByUser(Long userId) {
-        return addressRepository.findByUserId(userId);
-    }
+    Address findById(Long addressId);
 
-    @Transactional(readOnly = true)
-    public List<AddressDTO> findAll() {
-        List<Address> addressList = addressRepository.findAll();
-        return addressList.stream()
-                .map(AddressDTO::toDTO)
-                .collect(Collectors.toList());
-    }
+    Address update(Long addressId, Address address);
 
-    @Transactional
-    public AddressDTO update(Long addressId, AddressDTO addressDTO) {
-        Address findAddress = findById(addressId);
-        findAddress.changeAddress(addressDTO);
-        return AddressDTO.toDTO(findAddress);
-    }
+    void setDefault(Long userId, Long addressId);
 
-    @Transactional
-    public void setDefault(Long userId, Long addressId) {
-        try {
-            log.info("setDefault 실행");
-
-            List<Address> undefaultAddressList = findByUser(userId);
-            for (Address address : undefaultAddressList) {
-                address.unsetDefault();
-            }
-
-            Address defaultAddress = findById(addressId);
-            defaultAddress.setDefault();
-        } catch (Exception e) {
-            log.error("setDefault 트랜잭션 롤백 발생: " + e.getMessage());
-            throw e;
-        }
-    }
-
-    @Transactional
-    public void delete(Long addressId) {
-        addressRepository.deleteById(addressId);
-    }
+    void delete(Long addressId);
 
 }
