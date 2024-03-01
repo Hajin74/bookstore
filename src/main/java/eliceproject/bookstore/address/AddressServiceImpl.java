@@ -42,12 +42,11 @@ public class AddressServiceImpl implements AddressService {
 
     @Transactional
     @Override
-    public Address update(Long addressId, Address address) {
-        AddressDTO addressDTO = AddressDTO.toDTO(address);
+    public Address update(Long addressId, AddressDTO addressDTO) {
         log.info(addressDTO.toString());
         Address findAddress = findById(addressId);
         findAddress.changeAddress(addressDTO);
-        return address;
+        return findAddress;
     }
 
     @Transactional

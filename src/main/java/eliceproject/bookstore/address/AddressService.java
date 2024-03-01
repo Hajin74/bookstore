@@ -15,7 +15,7 @@ public interface AddressService {
 
     Address findById(Long addressId);
 
-    Address update(Long addressId, Address address);
+    Address update(Long addressId, AddressDTO addressDTO);
 
     void setDefault(Long userId, Long addressId);
 
