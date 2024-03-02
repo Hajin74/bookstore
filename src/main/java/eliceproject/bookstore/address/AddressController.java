@@ -55,9 +55,9 @@ public class AddressController {
 
     /* 주소시 수정 */
     @PatchMapping("/{addressId}")
-    public ApiResponse<Address> updateAddress(@PathVariable Long addressId, @RequestBody Address address) {
+    public ApiResponse<Address> updateAddress(@PathVariable Long addressId, @RequestBody AddressDTO addressDTO) {
         try {
-            Address updateAddress = addressService.update(addressId, address);
+            Address updateAddress = addressService.update(addressId, addressDTO);
             return ApiResponse.success(updateAddress, "주소지 수정에 성공했습니다.");
         } catch (Exception e) {
             log.error("주소시 수정에 실패했습니다.", e);
