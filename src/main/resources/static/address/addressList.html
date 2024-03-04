@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>배송주소록</title>
+    <!-- style -->
     <link rel="stylesheet" href="../common/header.css">
     <link rel="stylesheet" href="addressList.css">
+    <!-- js -->
+    <script src="addressList.js" type="module" defer></script>
 </head>
 <body>
 <div class="header">
@@ -30,42 +33,41 @@
         <button>회원정보 수정</button>
     </div>
     <div class="main-wrap">
-        <div class="default-address-wrap">
-            <p>배송주소록</p>
-            <div class="address-info">
-                <span>기본배송지</span>
-                <span>우리집</span><br>
-                <span>조민지</span>/
-                <span>010-1234-5678</span><br>
-                [<span>39333</span>]
-                <span>서울특별시 어디구 어디길</span>
+        <div class="default-address-wrap"></div>
+        <button class="add-address-btn" type="submit">+ 새 주소록 등록</button>
+        <div class="add-modal">
+            <div class="modal-content">
+                <label for="addressName">주소 이름:</label>
+                <input type="text" id="addressName" name="addressName"><br>
+                <label for="phoneNumber">전화번호:</label>
+                <input type="text" id="phoneNumber" name="phoneNumber"><br>
+                <label for="mainAddress">주소:</label>
+                <input type="text" id="mainAddress" name="mainAddress"><br>
+                <label for="subAddress">상세 주소:</label>
+                <input type="text" id="subAddress" name="subAddress"><br>
+                <label for="zipCode">우편번호:</label>
+                <input type="text" id="zipCode" name="zipCode"><br>
+                <button class="add-submit" type="submit" id="submitAddress">주소록 등록</button>
+                <button class="add-close">취소</button>
             </div>
         </div>
-        <div class="address-list-wrap">
-            <button type="submit">+ 새 주소록 등록</button>
-            <div class="address-item-wrap">
-                <div class="address-info">
-                    <span>기본배송지</span>
-                    <span>우리집</span><br>
-                    <span>조민지</span>/
-                    <span>010-1234-5678</span><br>
-                    [<span>39333</span>]
-                    <span>서울특별시 어디구 어디길</span>
-                </div>
-                <button type="submit">수정</button>
-            </div>
-            <div class="address-item-wrap">
-                <div class="address-info">
-                    <span>기본배송지</span>
-                    <span>우리집</span><br>
-                    <span>조민지</span>/
-                    <span>010-1234-5678</span><br>
-                    [<span>39333</span>]
-                    <span>서울특별시 어디구 어디길</span>
-                </div>
-                <button type="submit">수정</button>
+        <div class="edit-modal">
+            <div class="modal-content">
+                <label for="editAddressName">주소명:</label>
+                <input type="text" id="editAddressName" placeholder="새 주소명"><br>
+                <label for="editPhoneNumber">전화번호:</label>
+                <input type="text" id="editPhoneNumber" placeholder="새 전화번호"><br>
+                <label for="editMainAddress">주소:</label>
+                <input type="text" id="editMainAddress" placeholder="새 주소"><br>
+                <label for="editSubAddress">상세주소:</label>
+                <input type="text" id="editSubAddress" placeholder="새 상세주소"><br>
+                <label for="editZipCode">우편번호:</label>
+                <input type="text" id="editZipCode" placeholder="새 우편번호"><br>
+                <button class="edit-submit">수정하기</button>
+                <button class="edit-close">취소</button>
             </div>
         </div>
+        <div class="address-list-wrap"></div>
     </div>
 </div>
 </body>

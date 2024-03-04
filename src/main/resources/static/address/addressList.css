@@ -10,7 +10,6 @@ button {
 .contents-wrap {
     width: 100%;
     display: flex;
-    align-items: center;
 }
 
 .side-wrap {
@@ -39,6 +38,15 @@ button {
     padding: 50px 40px 50px 0;
 }
 
+.main-wrap > button {
+    display: block;
+    background-color: #B0C2FF;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    margin-top: 50px;
+}
+
 .main-wrap .default-address-wrap {
     border: 1px solid #D9D9D9;
     border-radius: 10px;
@@ -60,15 +68,7 @@ button {
 }
 
 .main-wrap .address-list-wrap {
-    margin-top: 50px;
-}
-
-.main-wrap .address-list-wrap > button {
-    background-color: #B0C2FF;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 15px;
-    margin-bottom: 10px;
+    margin-top: 10px;
 }
 
 .main-wrap .address-list-wrap .address-item-wrap {
@@ -81,12 +81,72 @@ button {
     margin-bottom: 20px;
 }
 
-.main-wrap .address-list-wrap .address-item-wrap > button {
+.address-item-wrap .address-item-button-wrap button {
     background-color: #B0C2FF;
     border: none;
     border-radius: 5px;
     padding: 10px 15px;
 }
 
+.add-modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: 300px;
+    overflow: auto;
+    background-color: white;
+    border: 1px solid #D9D9D9;
+    border-radius: 10px;
+}
+
+.add-modal .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+.add-modal .modal-content > button {
+    background-color: #B0C2FF;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+}
+
+.edit-modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: 300px;
+    overflow: auto;
+    background-color: white;
+    border: 1px solid #D9D9D9;
+    border-radius: 10px;
+}
+
+
+.edit-modal .model-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+.edit-modal .model-content > button {
+    background-color: #B0C2FF;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+}
 
 
