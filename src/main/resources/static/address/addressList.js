@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', () => {
     setEventListeners();
 });
 
-
 function getDefaultAddress(defaultAddress) {
     const defaultAddressWrap = document.querySelector('.default-address-wrap');
     defaultAddressWrap.innerHTML = '';

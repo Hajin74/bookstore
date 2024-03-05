@@ -6,7 +6,6 @@
 .contents-wrap {
     width: 100%;
     display: flex;
-    align-items: center;
 }
 
 .side {
@@ -34,6 +33,34 @@
     width: 75%;
     padding: 50px 40px 50px 0;
 }
+
+.main .order-result-wrap {
+    border: 1px solid #D9D9D9;
+    border-radius: 10px;
+    padding: 30px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.order-result-title span {
+    color: #484848;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.order-result-content {
+    border-left: 1px solid #D9D9D9;
+    padding: 5px;
+}
+
+.order-result-content button {
+    background-color: transparent;
+    border: none;
+    text-align: start;
+}
+
 
 .order-list-wrap {
     border: 1px solid #D9D9D9;

@@ -1,12 +1,11 @@
-INSERT INTO User (user_id, password, username, email, phone_number, birthday)
-VALUES ('john_doe', 'password123', 'John Doe', 'john@example.com', '010-1234-5678', '1990-01-01');
+INSERT INTO User (username, password, name, email, mobile_number, birthday, is_deleted)
+VALUES ('john_doe', 'password123', 'John Doe', 'john@example.com', '010-1234-5678', '1990-01-01', 0);
 
-INSERT INTO User (user_id, password, username, email, phone_number, birthday)
-VALUES ('alice_smith', 'password456', 'Alice Smith', 'alice@example.com', '010-9876-5432', '1995-05-15');
+INSERT INTO User (username, password, name, email, mobile_number, birthday, is_deleted)
+VALUES ('alice_smith', 'password456', 'Alice Smith', 'alice@example.com', '010-9876-5432', '1995-05-15', 0);
 
-INSERT INTO User (user_id, password, username, email, phone_number, birthday)
-VALUES ('김철수', 'securepwd123', '김철수', 'chulsoo@example.com', '010-9876-5432', '1985-03-25');
-
+INSERT INTO User (username, password, name, email, mobile_number, birthday, is_deleted)
+VALUES ('김철수', 'securepwd123', '김철수', 'chulsoo@example.com', '010-9876-5432', '1985-03-25', 0);
 
 
 INSERT INTO Address (user_id, address_name, phone_number, main_address, sub_address, zip_code, is_deleted, is_default)
@@ -48,4 +47,3 @@ VALUES ('객체지향의 사실과 오해');
 
 INSERT INTO Book (title)
 VALUES ('불안의 서');
-

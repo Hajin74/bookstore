@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>주문내역 상세</title>
+    <link rel="stylesheet" href="../common/header.css">
+    <link rel="stylesheet" href="orderDetail.css">
+</head>
+<body>
+<div class="header">
+    <img class="logo" src="../images/logo.png" alt="로고"/>
+    <nav>
+        <ul>
+            <li><a href="#">장바구니</a></li>
+            <li><a href="#">마이페이지</a></li>
+            <li><a href="#">책읽는 엘리스</a></li>
+            <li>
+                <a href="#">
+                    <img class="user" src="../images/user.png" alt="유저"/>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+<div class="contents-wrap">
+    <div class="side">
+        <img class="profile" src="../images/profile.png" alt="프로필 사진" />
+        <p class="nickname">닉네임</p>
+        <button>회원정보 수정</button>
+    </div>
+    <div class="main">
+        <div class="order-detail-title">
+            <h2>주문/배송 조회 상세</h2>
+        </div>
+        <div class="order-detail-meta-wrap">
+            <span id="order-detail-date">2024.02.21</span> |
+            <span id="order-detail-number">주문번호 12345</span>
+        </div>
+        <div class="order-detail-book-wrap">
+            <img src="../images/book.png" alt="책 표지 사진"/>
+            <div id="order-book-info">
+                <p>책 제목</p>
+                <span>수량: </span>
+                <span>1</span>
+            </div>
+            <div id="order-book-price">
+                <span>13,400원</span>
+            </div>
+            <div class="order-deliver-status">
+                <p>배송중</p>
+                <p>123123</p>
+                <button>배송조회</button>
+            </div>
+        </div>
+        <div class="order-detail-info-wrap">
+            <div>
+                <p>배송정보</p>
+                <span>조민지</span>/
+                <span>010-****-****</span><br>
+                <span>[우편번호]</span>
+                <span>서울특별시 마포구 망원동</span>
+                <span>몇동 몇호</span>
+            </div>
+            <div>
+                <p>결제정보</p>
+                <span>주문금액</span>
+                <span>26,800원</span>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
