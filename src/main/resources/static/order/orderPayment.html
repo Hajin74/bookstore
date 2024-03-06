@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>주문/결제</title>
+    <!-- css -->
+    <link rel="stylesheet" href="../common/header.css">
+    <link rel="stylesheet" href="orderPayment.css">
+    <!-- js -->
+    <script src="orderPayment.js" type="module" defer></script>
+</head>
+<body>
+<div class="header">
+    <img class="logo" src="../images/logo.png" alt="로고"/>
+    <nav>
+        <ul>
+            <li><a href="#">장바구니</a></li>
+            <li><a href="#">마이페이지</a></li>
+            <li><a href="#">책읽는 엘리스</a></li>
+            <li>
+                <a href="#">
+                    <img class="user" src="../images/user.png" alt="유저"/>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+<h1 id="order-payment-title">주문 / 결제</h1>
+<div class="contents-wrap">
+    <div class="order-payment-info-wrap">
+        <div class="order-payment-deliver-wrap wrap">
+            <div class="order-payment-deliver-info-wrap">
+                <p class="list-name">배송지 정보</p>
+                <div class="order-payment-deliver-info">
+                    <div class="deliver-name">
+                        <span>우리집</span>
+                        <span>기본배송지</span>
+                        <button type="button">변경</button>
+                    </div>
+                    <div class="deliver-person">
+                        <span>유하진 / 010-****-****</span>
+                    </div>
+                    <div class="deliver-address">
+                        <span>[우편번호] 서울특별시 마포구 망원동 망원아파트 101동 101호</span>
+                    </div>
+                </div>
+            </div>
+            <div class="order-payment-deliver-request">
+                <p class="list-name">배송요청사항</p>
+                <input type="text" placeholder="배송요청사항을 입력해주세요."/>
+            </div>
+            <div class="entrance-type">
+                <p class="list-name">공동현관 출입방법</p>
+                <div>
+                    <label for="password">공동현관 비밀번호</label>
+                    <input type="radio" id="password" name="entrance" value="password">
+                    <label for="free">자유출입 가능</label>
+                    <input type="radio" id="free" name="entrance" value="free">
+                </div>
+            </div>
+        </div>
+        <div class="order-payment-book-wrap wrap">
+            <div class="order-payment-book-header">
+                <span class="list-name">주문상품</span>
+                <span>총 1개</span>
+            </div>
+            <div class="order-payment-book-content">
+                <div class="book-item-wrap">
+                    <div class="book-item-detail">
+                        <img src="../images/book.png" alt="책 표지 사진"/>
+                        <div class="order-book-info">
+                            <p>책 제목</p>
+                            <span>수량: 1</span>
+                        </div>
+                    </div>
+                    <div class="book-item-price">
+                        <p>00,000원</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="order-payment-discount-wrap wrap">
+            <span class="list-name">할인쿠폰</span>
+            <span>사용가능한 쿠폰이 없습니다.</span>
+        </div>
+    </div>
+    <div class="order-payment-result-wrap wrap">
+        <div class="order-payment-book-price">
+            <p class="list-name">상품 금액</p>
+            <p>00,000원</p>
+        </div>
+        <div class="order-payment-deliver-price">
+            <p class="list-name">배송비</p>
+            <p>00,000원</p>
+        </div>
+        <div class="order-payment-discount-price">
+            <p class="list-name">상품 할인</p>
+            <p>00,000원</p>
+        </div>
+        <div class="order-payment-result-price">
+            <p class="list-name">결제 예정 금액</p>
+            <p>00,000원</p>
+        </div>
+        <div class="order-payment-type">
+            <p class="list-name"> 결제 수단</p>
+            <div>
+                <label for="card">카드</label>
+                <input type="radio" id="card" name="payment" value="card">
+                <label for="bank-transfer">계좌이체</label>
+                <input type="radio" id="bank-transfer" name="payment" value="bank-transfer">
+            </div>
+        </div>
+        <button type="button">주문하기</button>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,122 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    width: 100%;
+}
+
+#order-payment-title {
+    margin: 40px;
+}
+
+.wrap {
+    border: 1px solid #D9D9D9;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.list-name {
+    font-weight: bold;
+    font-size: 18px;
+    margin-right: 30px;
+}
+
+.contents-wrap {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.order-payment-info-wrap {
+    width: 60%;
+    margin: 0 20px 0 40px;
+}
+
+.order-payment-deliver-wrap {
+    margin-bottom: 20px;
+}
+
+.order-payment-deliver-info-wrap {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.order-payment-deliver-request {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.entrance-type {
+    display: flex;
+}
+
+.order-payment-book-wrap {
+    margin-bottom: 20px;
+}
+
+.order-payment-book-content {
+    margin-top: 10px;
+}
+
+.book-item-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.book-item-detail {
+    display: flex;
+    align-items: center;
+}
+
+.order-book-info {
+    margin-left: 10px;
+}
+
+.order-payment-result-wrap {
+    width: 40%;
+    height: 100%;
+    margin: 0 40px 0 20px;
+}
+
+.order-payment-result-wrap button {
+    background-color: #B0C2FF;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    color: white;
+}
+
+.order-payment-book-price {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.order-payment-deliver-price {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.order-payment-discount-price {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #D9D9D9;
+}
+
+.order-payment-result-price {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.order-payment-type {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
