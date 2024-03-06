@@ -34,43 +34,74 @@
     padding: 50px 40px 50px 0;
 }
 
-.main div {
-    margin-bottom: 30px;
+.order-detail-title {
+    margin-bottom: 20px;
 }
 
 .order-detail-meta-wrap {
     border: 1px solid #D9D9D9;
     border-radius: 10px;
     padding: 20px;
+    margin-bottom: 20px;
 }
 
-.order-detail-book-wrap {
+.order-detail-book-list-wrap {
     border: 1px solid #D9D9D9;
     border-radius: 10px;
-    padding: 20px;
-}
-
-.order-deliver-status {
-    border-left: 1px solid #D9D9D9;
-    padding: 0 20px;
-}
-
-.order-deliver-status button {
-    background-color: #B0C2FF;
-    border: none;
-    border-radius: 5px;
-    padding: 5px;
-    color: white;
-}
-
-.order-detail-book-wrap {
+    padding: 10px;
+    margin-bottom: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.order-detail-info-wrap {
+.order-detail-book-wrap {
+    width: 90%;
+    border-right: 1px solid #D9D9D9;
+}
+
+.order-detail-deliver-wrap {
+    width: 10%;
+    text-align: center;
+    margin-left: 10px;
+}
+
+.order-detail-book-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.order-detail-book {
+    display: flex;
+    align-items: center;
+}
+
+.order-detail-book-price {
+    margin-right: 10px;
+}
+
+#order-book-info {
+    margin-left: 20px;
+}
+
+.order-deliver-button {
+    background-color: #B0C2FF;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    color: white;
+    margin-top: 10px;
+}
+
+.order-detail-address-wrap {
     border: 1px solid #D9D9D9;
     border-radius: 10px;
-    padding: 20px;
+    padding: 10px;
+    margin-bottom: 40px;
+}
+
+.order-detail-pay {
+    margin-top:  10px;
 }

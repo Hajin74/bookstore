@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    getAddressList();
+    getAllAddress();
     setEventListeners();
 });
 
@@ -21,7 +21,7 @@ function getDefaultAddress(defaultAddress) {
     defaultAddressWrap.insertAdjacentHTML('beforeend', defaultAddressHtml);
 }
 
-async function getAddressList() {
+async function getAllAddress() {
     let defaultAddress;
     const response = await fetch("/myroom/address");
     const addressList = await response.json();

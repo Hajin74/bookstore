@@ -1,5 +1,6 @@
 package eliceproject.bookstore.order;
 
+import eliceproject.bookstore.order.dto.OrderDTO;
 import eliceproject.bookstore.order.dto.OrderRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,8 +24,15 @@ public class OrderController {
 
     /* 주문 전체 조회 */
     @GetMapping
-    public ResponseEntity<List<Order>> getAllOrder() {
+    public ResponseEntity<List<OrderDTO>> getAllOrder() {
         return new ResponseEntity<>(orderService.findAll(), HttpStatus.OK);
+    }
+
+    /* 주문 아이디로 조회 */
+    @GetMapping("/{orderId}")
+    public ResponseEntity<OrderDTO> getOrderById(@PathVariable Long orderId) {
+        Order findOrder = orderService.findById(orderId);
+        return new ResponseEntity<>(OrderDTO.toDTO(findOrder), HttpStatus.OK);
     }
 
 }

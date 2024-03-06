@@ -1,6 +1,7 @@
 package eliceproject.bookstore.order;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import eliceproject.bookstore.address.Address;
 import eliceproject.bookstore.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

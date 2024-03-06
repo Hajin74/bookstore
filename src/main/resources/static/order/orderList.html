@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>주문내역</title>
+    <!-- css -->
     <link rel="stylesheet" href="../common/header.css">
     <link rel="stylesheet" href="orderList.css">
+    <!-- js -->
+    <script src="orderList.js" type="module" defer></script>
 </head>
 <body>
 <div class="header">
@@ -65,41 +68,7 @@
                 </button>
             </div>
         </div>
-        <div class="order-list-wrap">
-            <span>주문내역</span>
-            <div class="order-list-meta-wrap">
-                <p id="order-number">2024.02.21 10010221(주문번호)</p>
-                <p id="order-detail">
-                    <a>상세보기 ></a>
-                </p>
-            </div>
-            <div class="order-list-contents-wrap">
-                <div>
-                    <img src="../images/book.png" alt="책 표지 사진"/>
-                    <ul class="order-list-contents">
-                        <li>
-                            <p>[국내도서] 책 제목</p>
-                            <p>수량 : 1</p>
-                        </li>
-                        <li>
-                            <p>[국내도서] 책 제목2</p>
-                            <p>수량 : 2</p>
-                        </li>
-                        <li>외 1권</li>
-                    </ul>
-                </div>
-                <div>
-                    <div class="order-list-price">
-                        <p>총 결제 금액 56,400원</p>
-                    </div>
-                    <div class="order-list-deliver-wrap">
-                        <p class="deliver-status">배송 완료</p>
-                        <p class="deliver-status-date">2024.02.20 배송 완료</p>
-                        <button>리뷰 작성</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <div class="order-list-wrap"></div>
     </div>
 </div>
 </body>

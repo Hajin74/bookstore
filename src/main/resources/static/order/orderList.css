@@ -8,6 +8,8 @@
     display: flex;
 }
 
+/* 사이드 */
+
 .side {
     width: 25%;
     text-align: center;
@@ -29,9 +31,11 @@
     padding: 5px 15px;
 }
 
+/* 메인 */
+
 .main {
     width: 75%;
-    padding: 50px 40px 50px 0;
+    padding: 50px 40px 50px 50px;
 }
 
 .main .order-result-wrap {
@@ -61,14 +65,7 @@
     text-align: start;
 }
 
-
-.order-list-wrap {
-    border: 1px solid #D9D9D9;
-    border-radius: 10px;
-    padding: 30px;
-}
-
-.order-list-wrap > span {
+.order-item-wrap > span {
     color: #484848;
     font-size: 18px;
     font-weight: 700;
@@ -76,66 +73,77 @@
     border-bottom: 1px solid black;
 }
 
-.order-list-meta-wrap {
+.order-item-meta-wrap {
     display: flex;
     align-items: center;
     margin-top: 30px;
 }
 
-#order-number {
+#order-item-number {
     color: black;
     font-size: 13px;
     font-weight: 700;
 }
 
-#order-detail {
+#order-item-detail {
     color: #484848;
     font-size: 13px;
     font-weight: 400;
     margin-left: 30px;
 }
 
-.order-list-contents-wrap {
+.order-item-wrap {
+    border: 1px solid #D9D9D9;
+    border-radius: 10px;
+    padding: 30px;
+    margin-bottom: 20px;
+}
+
+.order-item-contents-wrap {
     display: flex;
     justify-content: space-between;
     margin-top: 10px;
 }
 
-.order-list-contents-wrap > div {
+.order-item-contents-wrap > div {
     display: flex;
 }
 
-.order-list-contents {
+.order-item-contents {
     list-style-type: none;
     margin-left: 20px;
     font-size: 11px;
     font-weight: 400;
 }
 
-.order-list-deliver-wrap {
+.order-item-contents li {
+    margin-bottom: 10px;
+}
+
+.order-item-deliver-wrap {
     margin-left: 20px;
 }
 
-.order-list-price {
+.order-item-price {
     color: black;
     font-size: 14px;
     font-weight: 700;
 }
 
-.order-list-deliver-wrap > button {
+.order-item-deliver-wrap > button {
     background-color: #B0C2FF;
     border: none;
     border-radius: 5px;
     padding: 5px;
 }
 
-.deliver-status {
+.order-item-deliver-status {
     color: black;
     font-size: 14px;
     font-weight: 700;
 }
 
-.deliver-status-date {
+.order-item-deliver-status-date {
     color: #484848;
     font-size: 12px;
     font-weight: 400;
