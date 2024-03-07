@@ -47,3 +47,10 @@ VALUES ('객체지향의 사실과 오해');
 
 INSERT INTO Book (title)
 VALUES ('불안의 서');
+
+
+Insert into book (id, contents, created, page, price, publish_date, publisher, size, stock, sub_category_id, sub_title, thumbnail_url, title, updated, writer_id)
+values (1, '가나다라마바사', '1111-11-11 11:11:11', 425, 13400, 20240205, '출판사1', '136 * 204 * 29 mm / 636 g', 4, 1, '푸바오의 나날', 'url', '푸바오입니다',  '1111-11-11 11:11:11', 1);
+
+Insert into book (id, contents, created, page, price, publish_date, publisher, size, stock, sub_category_id, sub_title, thumbnail_url, title, updated, writer_id)
+values (2, '가나다라마바', '1111-11-11 11:11:11', 325, 23400, 20230106, '출판사2', '134 * 203 * 29 mm / 637 g', 2, 2, '없음', 'url', '영웅문',  '1111-11-11 11:11:11', 2);
