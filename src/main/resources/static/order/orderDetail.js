@@ -61,7 +61,7 @@ async function getOrderById(orderId) {
             <div class="order-detail-deliver-address">
                 <h3>배송정보</h3>
                 <p>${orderItem['user']['username']}/010-****-****</p>
-                <p>${orderItem['address']['zipCode']}[우편번호] 서울시 어디 몇동 몇호</p>
+                <p>[우편번호] 서울시 어디 몇동 몇호</p>
             </div>
             <div class="order-detail-pay">
                 <h3>결제정보</h3>

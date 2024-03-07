@@ -46,6 +46,11 @@ body {
 .order-payment-deliver-request {
     display: flex;
     margin-bottom: 10px;
+    width: 100%;
+}
+
+.order-payment-deliver-request input {
+   width: 70%;
 }
 
 .entrance-type {
