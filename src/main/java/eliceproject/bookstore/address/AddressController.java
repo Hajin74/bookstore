@@ -12,7 +12,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/myroom/address")
+@RequestMapping("/api/address")
 @RequiredArgsConstructor
 public class AddressController {
 

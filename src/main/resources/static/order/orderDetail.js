@@ -8,11 +8,11 @@ function getOrder() {
     const urlParams = new URLSearchParams(window.location.search);
     const orderId = urlParams.get('orderId');
 
-    getOrderById(orderId)
+    getOrderById(orderId);
 }
 
 async function getOrderById(orderId) {
-    const response = await fetch(`/myroom/order/${orderId}`);
+    const response = await fetch(`/api/order/${orderId}`);
     const orderItem = await response.json();
     const orderBookList = orderItem['orderBookList'];
     const orderDetailWrap = document.querySelector(".order-detail-wrap");

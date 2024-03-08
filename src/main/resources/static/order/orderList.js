@@ -8,7 +8,7 @@ function setEventListeners() {
 }
 
 async function getAllOrder() {
-    const response = await fetch("/myroom/order");
+    const response = await fetch("/api/order");
     const orderList = await response.json();
     const orderListWrap = document.querySelector(".order-list-wrap");
 
