@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 return response.text();
             })
             .then(data => {
-                if(typeof data == 'object' && data != null) {
+                if(typeof data === 'object' && data !== null) {
                     Object.keys(data).forEach(fieldName => {
                         const errorMessage = data[fieldName];
 

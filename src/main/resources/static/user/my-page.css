@@ -1,0 +1,94 @@
+/*address.css에서 가져옴*/
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.contents-wrap {
+    width: 100%;
+    display: flex;
+}
+
+.side-wrap {
+    width: 25%;
+    text-align: center;
+    padding: 50px 0;
+    margin-top: 100px;
+}
+
+.side-wrap .profile {
+    margin-bottom: 20px;
+}
+
+.side-wrap .nickname {
+    margin-bottom: 10px;
+}
+
+.side-wrap button {
+    background-color: #B0C2FF;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+}
+
+.side-wrap button a{
+    text-decoration: none;
+    color: white;
+}
+
+.main-wrap {
+    width: 75%;
+    padding: 50px 40px 50px 0;
+}
+
+.main-wrap .default-wrap {
+    border: 1px solid #D9D9D9;
+    border-radius: 10px;
+    padding: 30px;
+    display: block;
+    align-items: center;
+    height: 280px;
+}
+
+.main-wrap .default-wrap p {
+    color: #484848;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.main-wrap .default-wrap .order-content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.main-wrap .default-wrap .order-number p {
+    font-weight: bold;
+    font-size: 12px;
+}
+.main-wrap .default-wrap .order-detail {
+    margin-left: 30px;
+}
+.main-wrap .default-wrap .order-detail p {
+    font-size: 10px;
+}
+
+.main-wrap .default-wrap .order-price, .order-status {
+    text-align: right;
+}
+
+.main-wrap .default-wrap .order-status button {
+    background-color: #B0C2FF;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+
+    color: white;
+}
+
+.main-wrap .default-wrap .review {
+    display: flex;
+}
+.main-wrap .default-wrap .review p {
+    font-size: 12px;
+    margin-left: 20px;
+}

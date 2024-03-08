@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Shopping Mall</title>
+    <!-- bulma css 관련 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <!-- 커스텀 css, js -->
+    <link rel="stylesheet" href="../common/header.css">
+    <link rel="stylesheet" href="my-page.css">
+    <script src="/user/my-page.js" type="module" defer></script>
+</head>
+<body>
+<div class="header">
+    <img class="logo" src="../images/logo.png" alt="로고"/>
+    <nav>
+        <ul>
+            <li><a href="#">장바구니</a></li>
+            <li><a href="#">마이페이지</a></li>
+            <li><a href="#">책읽는 엘리스</a></li>
+            <li>
+                <a href="#">
+                    <img class="user" src="../images/user.png" alt="유저"/>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+<div class="contents-wrap">
+    <div class="side-wrap">
+        <img class="profile" src="../images/profile.png" alt="프로필 사진" />
+        <p class="nickname" id="name">닉네임</p>
+        <button><a href="/edit-user/edit-user.html">회원정보 수정</a></button>
+    </div>
+
+    <div class="main-wrap">
+        <div class="default-wrap">
+            <p>주문내역</p>
+            <div class="order-number">
+                <p>12345678(주문번호)<a href="#">상세보기></a></p>
+            </div>
+            <div class="order-content">
+                <div style="display: flex">
+                    <img src="../images/book.png" alt="책사진">
+                    <div class="order-detail">
+                        <p style="font-weight: bold; margin-bottom: 5px;">[국내도서] 책제목</p>
+                        <p>수량:1</p>
+                        <p style="font-weight: bold; margin-bottom: 5px;">[국내도서] 책제목</p>
+                        <p>수량:1</p>
+                        <p>외 1권</p>
+                    </div>
+                </div>
+                <div style="display: flex">
+                    <div class="order-price">
+                        <p style="margin-right: 40px; margin-top: 40px; font-size: 15px">총 결제 금액 56,400원</p>
+                    </div>
+                    <div class="order-status">
+                        <p>배송완료</p>
+                        <p style="font-size: 10px; color: #484848;">2024 . 02 . 24 배송 완료</p>
+                        <button type="button">리뷰작성</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="default-wrap" style="margin-top: 20px; justify-content: space-between;">
+            <p>상품후기</p>
+            <div class="review">
+                <img src="../images/book.png">
+                <p class="truncate_text">리뷰 내용 : 가나다라마바사 아자차카타파하 가나다라마바사 아자차카타파하</p>
+                <img src="../images/book.png">
+                <p class="truncate_text">리뷰 내용 : 가나다라마바사 아자차카타파하 가나다라마바사 아자차카타파하</p>
+                <img src="../images/book.png">
+                <p class="truncate_text">리뷰 내용 : 가나다라마바사 아자차카타파하 가나다라마바사 아자차카타파하</p>
+            </div>
+        </div>
+
+        <div class="default-wrap" style="margin-top: 20px; justify-content: space-between;">
+            <p>찜한상품</p>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
