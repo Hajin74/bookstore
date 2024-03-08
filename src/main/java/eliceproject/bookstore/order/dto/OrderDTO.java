@@ -19,6 +19,7 @@ import java.util.List;
 public class OrderDTO {
     private Long id;
     private User user;
+    private Address address;
     private List<OrderBook> orderBookList;
     private OrderStatus orderStatus;
     private LocalDateTime orderDate;
@@ -27,6 +28,7 @@ public class OrderDTO {
         OrderDTO dto =  OrderDTO.builder()
                 .id(order.getId())
                 .user(order.getUser())
+                .address(order.getAddress())
                 .orderBookList(order.getOrderBookList())
                 .orderStatus(order.getOrderStatus())
                 .orderDate(order.getOrderDate())

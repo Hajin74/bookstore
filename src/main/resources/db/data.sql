@@ -1,3 +1,5 @@
+use book_store;
+
 INSERT INTO User (username, password, name, email, mobile_number, birthday, is_deleted)
 VALUES ('john_doe', 'password123', 'John Doe', 'john@example.com', '010-1234-5678', '1990-01-01', 0);
 
@@ -23,34 +25,18 @@ VALUES (2, '집', '010-1111-2222', '서울시 종로구 인사동', '789-123번�
 INSERT INTO Address (user_id, address_name, phone_number, main_address, sub_address, zip_code, is_deleted, is_default)
 VALUES (2, '친구 집', '010-5555-6666', '경기도 수원시', '111-222번지', '67890', 0, 0);
 
-INSERT INTO Address (user_id, address_name, phone_number, main_address, sub_address, zip_code, is_deleted, is_default)
-VALUES (3, '부모님 집', '010-7777-8888', '인천광역시 남구', '333-444번지', '98765', 0, 0);
 
-INSERT INTO Address (user_id, address_name, phone_number, main_address, sub_address, zip_code, is_deleted, is_default)
-VALUES (3, '휴가지', '010-9999-0000', '제주특별자치도 제주시', '555-666번지', '54321', 0, 0);
+INSERT INTO Book (title, sub_title, price, stock, page, size, publish_date, thumbnail_url, publisher, contents, created, updated, sub_category_id)
+VALUES ('객체지향의 사실과 오해', '개발자와 개발팀이 함께 읽는 객체지향 도서', 25000, 100, 360, 'B5', 20220115, 'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9788998139766.jpg', '인사이트', '객체지향에 대한 오해를 해소하고 실무에서 적용하는 방법을 다룸', '2022-03-05 10:00:00', '2022-03-05 10:00:00', 1);
 
-INSERT INTO Address (user_id, address_name, phone_number, main_address, sub_address, zip_code, is_deleted, is_default)
-VALUES (3, '여행지 주소', '010-2345-6789', '부산광역시 해운대구 해운대해변로 123번길', '리조트 303호', '54321', 0, 0);
+INSERT INTO Book (title, sub_title, price, stock, page, size, publish_date, thumbnail_url, publisher, contents, created, updated, sub_category_id)
+VALUES ('Clean Code', '프로그래머를 위한 클린 코드', 30000, 80, 464, 'B5', 20200125, 'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9788966260959.jpg', '인사이트', '깨끗한 코드를 작성하는 방법과 관련된 원칙과 패턴을 설명함', '2022-03-05 10:00:00', '2022-03-05 10:00:00', 1);
 
+INSERT INTO Book (title, sub_title, price, stock, page, size, publish_date, thumbnail_url, publisher, contents, created, updated, sub_category_id)
+VALUES ('남아 있는 나날', '감성에세이', 18000, 120, 240, 'A5', 20211210, 'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9788937463884.jpg', '문학동네', '소소한 일상에서 살아가는 행복의 순간을 담은 에세이', '2022-03-05 10:00:00', '2022-03-05 10:00:00', 2);
 
-INSERT INTO Book (title)
-VALUES ('귀신들의 땅');
+INSERT INTO Book (title, sub_title, price, stock, page, size, publish_date, thumbnail_url, publisher, contents, created, updated, sub_category_id)
+VALUES ('속임수의 섬', '미스터리 소설', 18000 , 100, 480, 'A5', 20211210, 'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791170610984.jpg', '북다', '이 책이야말로 히가시가와 도쿠야 월드의 집대성이다.', '2022-03-05 10:00:00', '2022-03-05 10:00:00', 2);
 
-INSERT INTO Book (title)
-VALUES ('남아 있는 나날');
-
-INSERT INTO Book (title)
-VALUES ('모던 자바 인 액션');
-
-INSERT INTO Book (title)
-VALUES ('객체지향의 사실과 오해');
-
-INSERT INTO Book (title)
-VALUES ('불안의 서');
-
-
-Insert into book (id, contents, created, page, price, publish_date, publisher, size, stock, sub_category_id, sub_title, thumbnail_url, title, updated, writer_id)
-values (1, '가나다라마바사', '1111-11-11 11:11:11', 425, 13400, 20240205, '출판사1', '136 * 204 * 29 mm / 636 g', 4, 1, '푸바오의 나날', 'url', '푸바오입니다',  '1111-11-11 11:11:11', 1);
-
-Insert into book (id, contents, created, page, price, publish_date, publisher, size, stock, sub_category_id, sub_title, thumbnail_url, title, updated, writer_id)
-values (2, '가나다라마바', '1111-11-11 11:11:11', 325, 23400, 20230106, '출판사2', '134 * 203 * 29 mm / 637 g', 2, 2, '없음', 'url', '영웅문',  '1111-11-11 11:11:11', 2);
+INSERT INTO Book (title, sub_title, price, stock, page, size, publish_date, thumbnail_url, publisher, contents, created, updated, sub_category_id)
+VALUES ('일본 현지 간식 대백과', '진짜 일본 간식 총집합', 18000 , 100, 480, 'A5', 20211210, 'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791192512693.jpg', '클', '일본 추억의 대백과', '2022-03-05 10:00:00', '2022-03-05 10:00:00', 2);

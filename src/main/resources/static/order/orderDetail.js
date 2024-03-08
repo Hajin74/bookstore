@@ -18,10 +18,11 @@ async function getOrderById(orderId) {
     const orderDetailWrap = document.querySelector(".order-detail-wrap");
     orderDetailWrap.innerHTML = '';
 
+    const orderDate = orderItem['orderDate'].split('T')[0];
     let orderDetailHtml = `
         <div class="order-detail-meta-wrap">
-            <span id="order-detail-date">${orderItem['orderDate']}</span>
-            <span id="order-detail-number">${orderItem['id']}</span>
+            <span id="order-detail-date">${orderDate}</span>
+            <span id="order-detail-number">(${orderItem['id']})</span>
         </div>
         <div class="order-detail-book-list-wrap">
            <div class="order-detail-book-wrap">
@@ -33,7 +34,7 @@ async function getOrderById(orderId) {
         const orderDetailBookListHtml = `
             <div class="order-detail-book-item">
                 <div class="order-detail-book">
-                    <img src="../images/book.png" alt="책 표지 사진"/>
+                    <img src=${book['book']['thumbnailUrl']} alt="책 표지 사진"/>
                     <div id="order-book-info">
                         <p>${book['book']['title']}</p>
                         <span>수량: ${book['stock']}</span>
@@ -63,8 +64,8 @@ async function getOrderById(orderId) {
         <div class="order-detail-address-wrap">
             <div class="order-detail-deliver-address">
                 <h3>배송정보</h3>
-                <p>${orderItem['user']['username']}/010-****-****</p>
-                <p>[우편번호] 서울시 어디 몇동 몇호</p>
+                <p>${orderItem['address']['addressName']} / ${orderItem['address']['phoneNumber']}</p>
+                <p>[${orderItem['address']['zipCode']}] ${orderItem['address']['mainAddress']} ${orderItem['address']['subAddress']}</p>
             </div>
             <div class="order-detail-pay">
                 <h3>결제정보</h3>

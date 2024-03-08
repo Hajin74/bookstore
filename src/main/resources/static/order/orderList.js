@@ -47,7 +47,7 @@ async function getAllOrder() {
                         </div>
                         <div class="order-item-deliver-wrap">
                             <p class="order-item-deliver-status">${order['orderStatus']}</p>
-                            <p class="order-item-deliver-status-date">${order['orderDate']}</p>
+                            <p class="order-item-deliver-status-date">${order['orderDate'].split('T')[0]}</p>
                             <button>리뷰 작성</button>
                         </div>
                     </div>

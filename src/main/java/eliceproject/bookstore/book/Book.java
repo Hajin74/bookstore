@@ -52,4 +52,9 @@ public class Book {
                 .subCategoryId(BookDTO.getSubCategoryId())
                 .build();
     }
+
+    /* 재고 개수 변경 메소드*/
+    public void setStock(int stock) {
+        this.stock -= stock;
+    }
 }

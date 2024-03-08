@@ -78,6 +78,10 @@
     align-items: center;
 }
 
+.order-detail-book img {
+    width: 150px;
+}
+
 .order-detail-book-price {
     margin-right: 10px;
 }

@@ -9,5 +9,6 @@ import java.util.List;
 @Setter
 public class OrderRequest {
     private Long userId;
+    private Long addressId;
     private List<OrderBookRequest> orderBookRequestList;
 }

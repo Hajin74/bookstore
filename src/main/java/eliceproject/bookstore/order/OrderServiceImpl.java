@@ -3,6 +3,7 @@ package eliceproject.bookstore.order;
 import eliceproject.bookstore.address.AddressRepository;
 import eliceproject.bookstore.book.Book;
 import eliceproject.bookstore.book.BookRepository;
+import eliceproject.bookstore.exception.OutOfStockException;
 import eliceproject.bookstore.order.dto.OrderBookRequest;
 import eliceproject.bookstore.order.dto.OrderDTO;
 import eliceproject.bookstore.order.dto.OrderRequest;
@@ -26,13 +27,22 @@ public class OrderServiceImpl implements OrderService {
 
     @Transactional
     @Override
-    public Order create(OrderRequest orderRequest) {
+    public Order create(OrderRequest orderRequest) throws OutOfStockException {
         Order order = new Order();
         order.setUser(userRepository.findById(orderRequest.getUserId()).orElseThrow());
+        order.setAddress(addressRepository.findById(orderRequest.getAddressId()).orElseThrow());
         order.setOrderStatus(OrderStatus.READY_FOR_SHIPPING);
         order.setOrderDate(LocalDateTime.now());
 
         for (OrderBookRequest orderBookRequest : orderRequest.getOrderBookRequestList()) {
+            Book book = bookRepository.findById(orderBookRequest.getBookId()).orElseThrow();
+            if (book.getStock() < orderBookRequest.getStock()) {
+                throw new OutOfStockException("Not enough stocks for book : " + book.getId());
+            }
+
+            book.setStock(orderBookRequest.getStock());
+            bookRepository.save(book);
+
             OrderBook orderBook = new OrderBook();
             orderBook.setOrder(order);
             orderBook.setStock(orderBookRequest.getStock());
