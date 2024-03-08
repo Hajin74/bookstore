@@ -1,0 +1,75 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.contents-wrap {
+    width: 100%;
+}
+
+.wrap {
+    padding: 5px 0;
+}
+
+.book-detail-wrap {
+    margin: 0 100px;
+    padding: 80px 0;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #D9D9D9;
+}
+
+.book-detail-img-wrap {
+    width: 30%;
+}
+
+.book-detail-img {
+    width: 70%;
+}
+
+.book-detail-info-wrap {
+    width: 70%;
+}
+
+.book-detail-price-wrap {
+    border-top: 1px solid #D9D9D9;
+    margin-top: 20px;
+    padding-top: 20px;
+}
+
+.book-detail-price-wrap span {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.book-detail-deliver-wrap {
+    display: flex;
+}
+
+.book-detail-deliver-wrap p:first-child {
+    margin-right: 10px;
+}
+
+.book-detail-gift-wrap {
+    display: flex;
+}
+
+.book-detail-gift-wrap p:first-child {
+    margin-right: 10px;
+}
+
+.book-detail-button-wrap button:first-child {
+    background-color: #B0C2FF;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    color: white;
+}
+
+.book-detail-button-wrap button:last-child {
+    background-color: white;
+    border: 1px solid #D9D9D9;
+    border-radius: 5px;
+    padding: 10px 20px;
+    color: black;
+}
