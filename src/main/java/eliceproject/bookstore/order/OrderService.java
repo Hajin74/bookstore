@@ -15,4 +15,5 @@ public interface OrderService {
 
     Order findById(Long orderId);
 
+    List<OrderDTO> findByUserId(Long userId);
 }

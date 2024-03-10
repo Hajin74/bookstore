@@ -69,4 +69,13 @@ public class OrderServiceImpl implements OrderService {
                 .orElseThrow(() -> new IllegalArgumentException("Order not found with id : " + orderId));
     }
 
+    @Transactional(readOnly = true)
+    @Override
+    public List<OrderDTO> findByUserId(Long userId) {
+        List<Order> orderList = orderRepository.findByUserId(userId);
+        return orderList.stream()
+                .map(OrderDTO::toDTO)
+                .collect(Collectors.toList());
+    }
+
 }

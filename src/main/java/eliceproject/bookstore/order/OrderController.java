@@ -2,32 +2,50 @@ package eliceproject.bookstore.order;
 
 import eliceproject.bookstore.order.dto.OrderDTO;
 import eliceproject.bookstore.order.dto.OrderRequest;
+import eliceproject.bookstore.user.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/order")
 @RequiredArgsConstructor
 public class OrderController {
 
     private final OrderService orderService;
+    private final UserService userService;
 
     /* 주문 생성 */
     @PostMapping
     public ResponseEntity<Order> createOrder(@RequestBody OrderRequest orderRequest) throws Exception{
+        log.info("주문 생성");
         return new ResponseEntity<>(orderService.create(orderRequest), HttpStatus.OK);
     }
 
     /* 주문 전체 조회 */
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<OrderDTO>> getAllOrder() {
         return new ResponseEntity<>(orderService.findAll(), HttpStatus.OK);
+    }
+
+    /* 사용자별 주문 전체 조회 */
+    @GetMapping
+    public ResponseEntity<List<OrderDTO>> getOrderListByUserId() {
+        log.info("사용자별 주문 전체 조회");
+
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Long userId = userService.findUserIdByUsername(username);
+        List<OrderDTO> orderDTOList = orderService.findByUserId(userId);
+
+        return new ResponseEntity<>(orderDTOList, HttpStatus.OK);
     }
 
     /* 주문 아이디로 조회 */
@@ -47,5 +65,6 @@ public class OrderController {
         }
         return new ResponseEntity<>(orderStatusCountMap, HttpStatus.OK);
     }
+
 
 }

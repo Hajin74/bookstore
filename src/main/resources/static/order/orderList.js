@@ -1,10 +1,68 @@
 document.addEventListener('DOMContentLoaded', () => {
-    setEventListeners();
-    getAllOrder();
+    // setEventListeners();
+    // getAllOrderByUser();
+    getUser();
+    getAllOrderByUser();
 });
 
 function setEventListeners() {
+}
 
+
+async function getUser() {
+    const jwtToken = localStorage.getItem("token");
+    const headers = {
+        'Content-Type': 'application/json'
+    };
+    if (jwtToken !== null){
+        headers['Authorization'] = jwtToken;
+    }
+
+    const nickname = document.querySelector(".nickname");
+    fetch('/user', {
+        method: 'GET',
+        headers: headers
+    })
+        .then(response=>{
+            if(!response.ok){
+                throw new Error('유저 정보를 가져오는데 실패했습니다.');
+            }
+            return response.json();
+        })
+        .then(data=>{
+            console.log(data);
+            nickname.textContent = data.name;
+            // getAllOrderByUser(data.id);
+        })
+        .catch(error=>{
+            console.log('유저 정보를 가져오는데 실패했습니다.', error);
+        })
+}
+
+async function getAllOrderByUser() {
+    console.log("getAllOrderByUser 메소드 호출");
+    const jwtToken = localStorage.getItem("token");
+    const headers = {
+        'Content-Type': 'application/json'
+    };
+    if (jwtToken !== null){
+        headers['Authorization'] = jwtToken;
+    }
+
+    fetch('/api/order', {
+        method: 'GET',
+        headers: headers
+    })
+        .then(response=>{
+            if(!response.ok){
+                throw new Error('주문 정보를 가져오는데 실패했습니다.');
+            }
+            console.log("json:" + response.json());
+            return response.json();
+        })
+        .catch(error=>{
+            console.log('주문 정보를 가져오는데 실패했습니다.', error);
+        })
 }
 
 async function getAllOrder() {

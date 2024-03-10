@@ -79,6 +79,16 @@ public class UserServiceImpl implements UserService{
         userRepository.save(user);
     }
 
+    @Override
+    public Long findUserIdByUsername(String username) {
+        User user = userRepository.findByUsername(username); // 주어진 username으로 사용자를 조회
+        if (user != null) {
+            return user.getId(); // 사용자가 존재하면 해당 사용자의 userid를 반환
+        } else {
+            return null; // 사용자가 존재하지 않으면 null 반환하거나 적절한 예외 처리를 수행할 수 있습니다.
+        }
+    }
+
     public User findByUsername(String username){
         User user = userRepository.findByUsername(username);
         if(user == null || user.isDeleted()){

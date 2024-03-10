@@ -26,26 +26,31 @@ public class JwtFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String authorizationHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
 
-        if(authorizationHeader == null){
+        if(authorizationHeader == null || !authorizationHeader.startsWith("Bearer")){
+            System.out.println("Token is null");
             filterChain.doFilter(request, response);
             return;
         }
 
-        if(!authorizationHeader.startsWith("Bearer")){
-            filterChain.doFilter(request, response);
-        }
+//        if(!authorizationHeader.startsWith("Bearer")){
+//            filterChain.doFilter(request, response);
+//        }
 
         String token = authorizationHeader.split(" ")[1]; // 1로 바꾸기
 
         if(jwtUtil.isExpired(token)){
+            System.out.println("Token is expired.");
             filterChain.doFilter(request, response);
+            return;
         }
 
         String username = jwtUtil.getUsername(token);
         User user = userRepository.findByUsername(username);
 
-        UsernamePasswordAuthenticationToken authToken =
-                new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());
+//        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());
+
+        CustomUserDetails customUserDetails = new CustomUserDetails(user);
+        Authentication authToken = new UsernamePasswordAuthenticationToken(customUserDetails, null, customUserDetails.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication((authToken));
 
         filterChain.doFilter(request, response);
