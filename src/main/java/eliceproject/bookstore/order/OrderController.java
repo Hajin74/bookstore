@@ -43,7 +43,10 @@ public class OrderController {
 
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         Long userId = userService.findUserIdByUsername(username);
+        log.info("userId: " + userId);
+
         List<OrderDTO> orderDTOList = orderService.findByUserId(userId);
+        log.info("orderDTOList: " + orderDTOList);
 
         return new ResponseEntity<>(orderDTOList, HttpStatus.OK);
     }

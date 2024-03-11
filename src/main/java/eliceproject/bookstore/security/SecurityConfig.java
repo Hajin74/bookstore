@@ -20,6 +20,8 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.springframework.web.servlet.function.RequestPredicates.headers;
+
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -37,7 +39,7 @@ public class SecurityConfig {
                 .formLogin(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((authorizeRequest)->authorizeRequest
-                        .requestMatchers("/", "/login", "login/login.html", "/register", "/forget-password", "/forget-username").permitAll()
+                        .requestMatchers("/", "/css/**", "/images/**", "/js/**", "/home/**", "/login", "login/login.html", "/register", "/forget-password", "/forget-username").permitAll()
                         .anyRequest().permitAll()
 //                        .anyRequest().authenticated()
                 )

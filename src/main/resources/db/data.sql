@@ -19,11 +19,11 @@ VALUES (1, '회사', '02-333-4444', '서울특별시 서초구', '789-101번지'
 INSERT INTO address (user_id, address_name, phone_number, main_address, sub_address, zip_code, is_deleted, is_default)
 VALUES (1, '이사갈 주소', '010-5678-9012', '대전광역시 서구 계룡로 890번길', '빌라 404호', '45678', 0, 0);
 
-INSERT INTO Address (user_id, address_name, phone_number, main_address, sub_address, zip_code, is_deleted, is_default)
+INSERT INTO address (user_id, address_name, phone_number, main_address, sub_address, zip_code, is_deleted, is_default)
 VALUES (2, '집', '010-1111-2222', '서울시 종로구 인사동', '789-123번지', 54321, 0, 1);
 
-INSERT INTO Address (user_id, address_name, phone_number, main_address, sub_address, zip_code, is_deleted, is_default)
-VALUES (2, '친구 집', '010-5555-6666', '경기도 수원시', '111-222번지', '67890', 0, 0);
+INSERT INTO address (user_id, address_name, phone_number, main_address, sub_address, zip_code, is_deleted, is_default)
+VALUES (3, '친구 집', '010-5555-6666', '경기도 수원시', '111-222번지', '67890', 0, 0);
 
 
 INSERT INTO book (title, sub_title, price, stock, page, size, publish_date, thumbnail_url, publisher, contents, created, updated, sub_category_id)

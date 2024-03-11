@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function (){
                 if (!response.ok){
                     return response.text();
                 }
-                localStorage.setItem("token", response.headers.get("Authorization"));
+                localStorage.setItem("token", response.body);
                 response.json();
             })
             .then(data => {

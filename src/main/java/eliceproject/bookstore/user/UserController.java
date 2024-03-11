@@ -84,7 +84,6 @@ public class UserController {
             String jwtToken = userService.login(username,password);;
             return ResponseEntity.ok()
                     .header(HttpHeaders.AUTHORIZATION, "Bearer " + jwtToken)
-                    .body("로그인 성공");
         }catch (Exception e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
