@@ -57,9 +57,16 @@ public class OrderController {
 
     /* 주문 상태별 분류 및 갯수 조회 */
     @GetMapping("/status/count")
-    public ResponseEntity<Map<OrderStatus, Long>> getOrderCountByStatus(@RequestBody List<Order> orderList) {
+    public ResponseEntity<Map<OrderStatus, Long>> getOrderCountByStatus() {
+        log.info("주문 상태별 분류 및 갯수 조회");
+
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Long userId = userService.findUserIdByUsername(username);
+        List<OrderDTO> orderDTOList = orderService.findByUserId(userId);
+
+
         Map<OrderStatus, Long> orderStatusCountMap = new HashMap<>();
-        for (Order order : orderList) {
+        for (OrderDTO order : orderDTOList) {
             OrderStatus orderStatus = order.getOrderStatus();
             orderStatusCountMap.put(orderStatus, orderStatusCountMap.getOrDefault(orderStatus, 0L) + 1);
         }
