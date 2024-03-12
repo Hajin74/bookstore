@@ -20,20 +20,15 @@ document.addEventListener("DOMContentLoaded", function (){
             },
             body: JSON.stringify(formData)
         })
-            .then(response => {
-                if (!response.ok){
-                    return response.text();
-                }
-                localStorage.setItem("token", response.headers.get("Authorization"));
-                response.json();
-            })
+            .then(response => response.text())
             .then(data => {
                 if(data === "존재하지 않는 아이디 입니다." ||
                     data === "비밀번호가 틀렸습니다.") {
                     errorMessage.textContent = data;
                     throw new Error(data);
                 }
-                console.log("로그인 성공 : " + data);
+                localStorage.setItem("token",data);
+                console.log("로그인 성공 : ");
                 window.location.href = "/";
             })
             .catch(error => {

@@ -22,8 +22,6 @@ import java.util.Map;
 public class UserController {
 
     private final UserService userService;
-    private final AuthenticationManagerBuilder authenticationManagerBuilder;
-
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody @Valid UserDto userDto, BindingResult bindingResult) {
@@ -72,9 +70,7 @@ public class UserController {
         String password = userDto.getPassword();
         try {
             String jwtToken = userService.login(username,password);
-            return ResponseEntity.ok()
-                    .header(HttpHeaders.AUTHORIZATION, "Bearer " + jwtToken)
-                    .body("로그인 성공");
+            return new ResponseEntity<>("Bearer "+jwtToken, HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }

@@ -1,3 +1,6 @@
+if(!localStorage.getItem("token")){
+    window.location.href = "../login/login.html"
+}
 document.addEventListener("DOMContentLoaded", function (){
     const jwtToken = localStorage.getItem("token");
     const orderList = document.getElementById("orderList");
@@ -42,7 +45,6 @@ document.addEventListener("DOMContentLoaded", function (){
             if (data && data.length > 0) {
                 displayOrderList(data);
             } else {
-                const orderList = document.getElementById("orderList");
                 orderList.textContent = '주문내역이 없습니다.';
                 orderList.style.textAlign = 'center';
             }

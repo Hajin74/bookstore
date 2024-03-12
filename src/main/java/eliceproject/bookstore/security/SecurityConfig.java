@@ -2,6 +2,7 @@ package eliceproject.bookstore.security;
 
 import eliceproject.bookstore.security.jwt.JwtFilter;
 import eliceproject.bookstore.security.jwt.JwtUtil;
+import eliceproject.bookstore.user.User;
 import eliceproject.bookstore.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -34,6 +35,7 @@ public class SecurityConfig {
                         .requestMatchers("/common/header.js","/register/register.js","/login/login.js").permitAll()
                         .requestMatchers("/images/**").permitAll()
                         .requestMatchers("/css/**").permitAll()
+                        .requestMatchers("/user","/api/order/**","/api/address/**").hasRole(User.Role.USER.name())
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(new JwtFilter(userRepository,jwtUtil), UsernamePasswordAuthenticationFilter.class)
