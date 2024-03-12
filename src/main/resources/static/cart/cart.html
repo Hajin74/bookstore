@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>엘리스문고_장바구니</title>
+
+    <link rel="stylesheet" href="./cart.css">
+</head>
+<body>
+
+<!--1. 헤더 넣기
+    2. 배송방법 넣기
+    3. sessionStorage로 결제페이지에 상품 넘겨주기(key, value)
+    4. 사진 이미지 넣기-->
+
+<script>
+    function updateTotalPrice() {
+        var totalPrice = 13400;
+        var discountAmount = 0;
+        var shippingFee = 3000;
+
+        document.querySelectorAll('.cart-item').forEach(function(item) {
+            if (item.querySelector('.item-checkbox input').checked) {
+                var quantityInput = item.querySelector('.item-quantity input');
+                var priceDisplay = item.querySelector('.item-price');
+                var price = parseInt(priceDisplay.dataset.basePrice);
+                totalPrice += price * parseInt(quantityInput.value);
+            }
+        });
+
+        var finalPrice = totalPrice - discountAmount + shippingFee;
+
+        document.querySelector('.subtotal').textContent = totalPrice.toLocaleString() + ' 원';
+        document.querySelector('.discount').textContent = '-' + discountAmount.toLocaleString() + ' 원';
+        document.querySelector('.shipping').textContent = '+' + shippingFee.toLocaleString() + ' 원';
+        document.querySelector('.total').textContent = finalPrice.toLocaleString() + ' 원';
+    }
+
+    function updateQuantity(quantityInput, isIncrement) {
+        var currentValue = parseInt(quantityInput.value);
+        if (isIncrement) {
+            quantityInput.value = currentValue + 1;
+        } else if (currentValue > 1) {
+            quantityInput.value = currentValue - 1;
+        }
+        updateTotalPrice();
+    }
+
+    window.onload = function() {
+        var selectAllCheckboxes = document.querySelectorAll('#select-all');
+        selectAllCheckboxes.forEach(function(selectAllCheckbox) {
+            selectAllCheckbox.addEventListener('change', function() {
+                var checkboxes = document.querySelectorAll('.cart-item input[type="checkbox"]');
+                checkboxes.forEach(function(checkbox) {
+                    checkbox.checked = selectAllCheckbox.checked;
+                });
+            });
+        });
+
+        var deleteButton = document.querySelector('.cart__list__optionbtn');
+        deleteButton.addEventListener('click', function() {
+            var checkboxes = document.querySelectorAll('.cart-item input[type="checkbox"]');
+            checkboxes.forEach(function(checkbox) {
+                checkbox.checked = false;
+            });
+        });
+
+        document.querySelectorAll('.cart-item').forEach(function(item) {
+            var minusButton = item.querySelector('.item-quantity button:first-child');
+            var plusButton = item.querySelector('.item-quantity button:last-child');
+            var quantityInput = item.querySelector('.item-quantity input');
+            var priceDisplay = item.querySelector('.item-price');
+
+            priceDisplay.setAttribute('data-base-price', priceDisplay.textContent.replace(/[^\d]/g, ''));
+
+            minusButton.addEventListener('click', function() {
+                updateQuantity(quantityInput, false);
+            });
+
+            plusButton.addEventListener('click', function() {
+                updateQuantity(quantityInput, true);
+            });
+        });
+
+        updateTotalPrice();
+    };
+</script>
+
+<div class="main">
+    <h2 class="page_title">
+        장바구니
+    </h2>
+    <div></div>
+    <div class="content">
+        <div class="cart-items">
+            <div class="cart-options">
+                <input type="checkbox" id="select-all">
+                <label for="select-all">전체선택</label>
+                <button class="delete-btn">선택삭제</button>
+            </div>
+            <hr>
+
+            <div class="price-box">
+                <div class="cart-item">
+                    <div class="item-checkbox">
+                        <input type="checkbox" id="item1" name="item1">
+                    </div>
+                    <!-- <div class="item-image">
+                        <img src="./img/.png" alt="Book Image">
+                    </div> -->
+                    <div class="item-details">
+                        <div class="item-name">[국내도서] 책 제목1</div>
+                        <div class="item-price">13,400원</div>
+                    </div>
+                    <div class="item-actions">
+                        <div class="item-quantity">
+                            <button>-</button>
+                            <input type="number" value="1">
+                            <button>+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cart-item">
+                    <div class="item-checkbox">
+                        <input type="checkbox" id="item1" name="item1">
+                    </div>
+                    <!-- <div class="item-image">
+                        <img src="./img/.png" alt="Book Image">
+                    </div> -->
+                    <div class="item-details">
+                        <div class="item-name">[국내도서] 책 제목2</div>
+                        <div class="item-price">13,400원</div>
+                    </div>
+                    <div class="item-actions">
+                        <div class="item-quantity">
+                            <button>-</button>
+                            <input type="number" value="2">
+                            <button>+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cart-item">
+                    <div class="item-checkbox">
+                        <input type="checkbox" id="item1" name="item1">
+                    </div>
+                    <!-- <div class="item-image">
+                        <img src="./img/.png" alt="Book Image">
+                    </div> -->
+                    <div class="item-details">
+                        <div class="item-name">[국내도서] 책 제목3</div>
+                        <div class="item-price">13,400원</div>
+                    </div>
+                    <div class="item-actions">
+                        <div class="item-quantity">
+                            <button>-</button>
+                            <input type="number" value="1">
+                            <button>+</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-side">
+            <div class="price-box">
+                <div class="summary-item">
+                    <span class = "price-title">상품금액</span>
+                    <span> 13,400 원</span>
+                </div>
+                <div class="summary-item">
+                    <span class = "price-title">배송비</span>
+                    <span> + 0 원</span>
+                </div>
+                <div class="summary-item">
+                    <span class = "price-title">상품할인금액</span>
+                    <span> + 0 원</span>
+                </div>
+                <div class="summary-item summary-total">
+                    <span class = "price-title">결제예정금액</span>
+                    <span class = "price-title"> 13,400 원</span>
+                </div>
+            </div>
+            <button class="order-btn">주문하기</button>
+        </div>
+    </div>
+</div>
+
+<div id="footer">
+    <p class="txt">
+        ©ELICE_2nd_project_elicebooks.ALL RIGHTS RESERVED
+    </p>
+</div>
+</body>
