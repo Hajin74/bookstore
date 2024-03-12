@@ -1,5 +1,6 @@
 package eliceproject.bookstore.address;
 
+import eliceproject.bookstore.user.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,8 @@ public class AddressServiceImpl implements AddressService {
 
     @Transactional
     @Override
-    public Address create(Address address) {
+    public Address create(Address address, User user) {
+        address.setUser(user);
         return addressRepository.save(address);
     }
 

@@ -1,34 +1,100 @@
 document.addEventListener('DOMContentLoaded', () => {
-    getAllAddress();
+    getAllAddressByUser();
     setEventListeners();
+    getUser();
 });
 
+async function getUser() {
+    const jwtToken = localStorage.getItem("token");
+    const headers = {
+        'Content-Type': 'application/json'
+    };
+    if (jwtToken !== null){
+        headers['Authorization'] = jwtToken;
+    }
+
+    const nickname = document.querySelector(".nickname");
+    console.log("nickname: " + nickname);
+    fetch('/user', {
+        method: 'GET',
+        headers: headers
+    })
+        .then(response=>{
+            if(!response.ok){
+                throw new Error('유저 정보를 가져오는데 실패했습니다.');
+            }
+            return response.json();
+        })
+        .then(data=>{
+            nickname.textContent = data.name;
+        })
+        .catch(error=>{
+            console.log('유저 정보를 가져오는데 실패했습니다.', error);
+        })
+}
+
 function getDefaultAddress(defaultAddress) {
+    console.log("defaultAddress: " + defaultAddress);
     const defaultAddressWrap = document.querySelector('.default-address-wrap');
     defaultAddressWrap.innerHTML = '';
 
     const defaultAddressHtml = `
         <p>배송주소록</p>
         <div class="address-info">
-            <span>기본배송지</span> |
-            <span>${defaultAddress['addressName']}</span><br>
+            <span>${defaultAddress['addressName']}</span> |
+            <span>기본배송지</span><br>
             <span>${defaultAddress['phoneNumber']}</span><br>
             [<span>${defaultAddress['zipCode']}</span>]
             <span>${defaultAddress['mainAddress']}</span>
+            <span>${defaultAddress['subAddress']}</span>
         </div>
     `
 
     defaultAddressWrap.insertAdjacentHTML('beforeend', defaultAddressHtml);
 }
 
-async function getAllAddress() {
+async function getAllAddressByUser() {
+    console.log("getAllAddressByUser 메소드 호출");
+
+    const jwtToken = localStorage.getItem("token");
+    const headers = {
+        'Content-Type': 'application/json'
+    };
+    if (jwtToken !== null){
+        headers['Authorization'] = jwtToken;
+    }
+
     let defaultAddress;
-    const response = await fetch("/myroom/address");
-    const addressList = await response.json();
+
+    fetch('/api/address', {
+        method: 'GET',
+        headers: headers
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            throw new Error('주소지 목록을 가져오는데 실패했습니다.');
+        }
+    })
+    .then(data => {
+        console.log('주소지 정보를 가져오는데 성공했습니다');
+        console.log("주소지: " + data);
+        renderAddressListData(data);
+    })
+    .catch(error => {
+        console.error('주소지 정보를 가져오는데 실패했습니다.', error);
+    });
+}
+
+function renderAddressListData(data) {
+    console.log("renderAddressListData 호출");
+
+    let defaultAddress;
     const addressListWrap = document.querySelector('.address-list-wrap');
     addressListWrap.innerHTML = '';
 
-    addressList.forEach(address => {
+    data.forEach(address => {
         let isDefaultSpan;
         let defaultAddressBtn;
 
@@ -50,6 +116,7 @@ async function getAllAddress() {
                     <span>${address['phoneNumber']}</span><br>
                     [<span>${address['zipCode']}</span>]
                     <span>${address['mainAddress']}</span>
+                    <span>${address['subAddress']}</span>
                 </div>
                 <div class="address-item-button-wrap">
                     ${defaultAddressBtn}
@@ -93,7 +160,7 @@ editSubmitBtn.addEventListener('click', () => {
 });
 
 async function updateAddress(addressId, editAddress) {
-    const response = await fetch(`/myroom/address/${addressId}`, {
+    const response = await fetch(`/api/address/${addressId}`, {
         method: "PATCH",
         headers: {
             "Content-Type": "application/json"
@@ -103,7 +170,7 @@ async function updateAddress(addressId, editAddress) {
 
     const findAddress = await response.json();
     console.log(findAddress.addressName);
-    getAllAddress();
+    getAllAddressByUser();
 }
 
 
@@ -121,40 +188,71 @@ async function updateAddressListeners(){
 }
 
 async function addAddress(address){
-    const response = await fetch("/myroom/address", {
+    const jwtToken = localStorage.getItem("token");
+    const headers = {
+        'Content-Type': 'application/json'
+    };
+    if (jwtToken !== null){
+        headers['Authorization'] = jwtToken;
+    }
+
+    fetch("/api/address", {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
+        headers: headers,
         body: JSON.stringify(address)
     })
-
-    const createdAddress = await response.json();
-    console.log(createdAddress.addressName);
-    getAllAddress();
+    .then(response => {
+        if (response.ok) {
+            const createdAddress = response.json();
+            console.log(createdAddress.addressName);
+            console.log("주소지 등록에 성공했습니다");
+            getAllAddressByUser();
+            return response.json();
+        } else {
+            throw new Error('주소지 등록에 실패했습니다.');
+        }
+    })
+    .catch(error => {
+        console.error('주소지 등록에 실패했습니다.', error);
+    });
 }
 
 async function setDefaultAddress() {
     const setDefaultAddressButtons = document.querySelectorAll(".set-default-address-btn");
     setDefaultAddressButtons.forEach(button => {
         button.addEventListener('click', async () => {
+            const jwtToken = localStorage.getItem("token");
+            const headers = {
+                'Content-Type': 'application/json'
+            };
+            if (jwtToken !== null){
+                headers['Authorization'] = jwtToken;
+            }
+
             const addressIdElement = button.closest('.address-item-wrap').querySelector('#address-id');
             const addressId = addressIdElement.textContent;
 
-            const response = await fetch(`/myroom/address/${addressId}/default`, {
+            console.log("setDefaultAddress 호출 : " + addressId);
+
+            fetch(`/api/address/${addressId}/default`, {
                 method: 'PUT',
+                headers: headers
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log("기본 주소지 설정에 성공했습니다");
+                    return response.json();
+                } else {
+                    throw new Error('기본 주소지 설정에 실패했습니다.');
+                }
+            })
+            .catch(error => {
+                console.error('기본 주소지 설정에 실패했습니다.', error);
             });
-
-            if (response.ok) {
-                const defaultAddress = await response.json();
-                console.log("기본 주소지 설정 성공:", defaultAddress);
-            } else {
-                console.error("기본 주소지 설정 실패:", response.statusText);
-            }
-
-            getAllAddress();
         });
     });
+
+    getAllAddressByUser();
 }
 
 
@@ -163,20 +261,34 @@ async function deleteAddress() {
 
     deleteButtons.forEach(button => {
         button.addEventListener('click', async () => {
+            const jwtToken = localStorage.getItem("token");
+            const headers = {
+                'Content-Type': 'application/json'
+            };
+            if (jwtToken !== null){
+                headers['Authorization'] = jwtToken;
+            }
+
             const addressIdElement = button.closest('.address-item-wrap').querySelector('#address-id');
             const addressId = addressIdElement.textContent;
 
-            const response = await fetch(`/myroom/address/${addressId}`, {
+            fetch(`/api/address/${addressId}`, {
                 method: 'DELETE',
+                headers: headers
+            })
+            .then(response => {
+            if (response.ok) {
+                console.log("주소지 삭제에 성공했습니다");
+                return response.json();
+            } else {
+                throw new Error('주소지 삭제에 실패했습니다.');
+            }
+            })
+            .catch(error => {
+                console.error('주소지 삭제에 실패했습니다.', error);
             });
 
-            if (response.ok) {
-                console.log("주소지 삭제 성공");
-            } else {
-                console.error("주소지 삭제 실패");
-            }
-
-            getAllAddress();
+            getAllAddressByUser();
         });
     });
 }

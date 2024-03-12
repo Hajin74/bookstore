@@ -1,5 +1,6 @@
 package eliceproject.bookstore.address;
 
+import eliceproject.bookstore.user.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -7,7 +8,7 @@ import java.util.Optional;
 
 public interface AddressService {
 
-    Address create(Address address);
+    Address create(Address address, User user);
 
     List<Address> findAll();
 
