@@ -54,12 +54,18 @@ public class Address {
 
     public void changeAddress(AddressDTO addressDTO) {
         String newAddressName = addressDTO.getAddressName();
+        String newPhoneNumber = addressDTO.getPhoneNumber();
         String newMainAddress = addressDTO.getMainAddress();
         String newSubAddress = addressDTO.getSubAddress();
+        Integer newZipCode = addressDTO.getZipCode();
+        boolean newIsDeleted = addressDTO.isDeleted();
         boolean newIsDefault = addressDTO.isDefault();
 
         if (newAddressName != null && !newAddressName.isBlank()) {
             this.addressName = newAddressName;
+        }
+        if (newPhoneNumber != null && !newPhoneNumber.isBlank()) {
+            this.phoneNumber = newPhoneNumber;
         }
         if (newMainAddress != null && !newMainAddress.isBlank()) {
             this.mainAddress = newMainAddress;
@@ -67,6 +73,10 @@ public class Address {
         if (newSubAddress != null && !newSubAddress.isBlank()) {
             this.subAddress = newSubAddress;
         }
+        if (newZipCode != null) {
+            this.zipCode = newZipCode;
+        }
+        this.isDeleted = newIsDeleted;
         if (newIsDefault) {
             setDefault();
         }
@@ -78,6 +88,10 @@ public class Address {
 
     public void unsetDefault() {
         this.isDefault = false;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override

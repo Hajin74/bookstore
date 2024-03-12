@@ -1,10 +1,15 @@
 package eliceproject.bookstore.address;
 
 import eliceproject.bookstore.exception.ResourceNotFoundException;
+import eliceproject.bookstore.order.dto.OrderDTO;
+import eliceproject.bookstore.user.User;
+import eliceproject.bookstore.user.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,11 +23,17 @@ public class AddressController {
 
     private final AddressRepository addressRepository;
     private final AddressService addressService;
+    private final UserService userService;
 
     /* 주소지 등록 */
     @PostMapping
     public ResponseEntity<Address> addAddress(@RequestBody Address address) throws Exception {
-        Address createdAddress = addressService.create(address);
+        log.info("주소지 등록");
+
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.findByUsername(username);
+
+        Address createdAddress = addressService.create(address, user);
         if (createdAddress == null) {
             throw new Exception("주소지 등록에 실패했습니다.");
         }
@@ -30,9 +41,21 @@ public class AddressController {
     }
 
     /* 주소지 전체 조회 */
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<Address>> getAllAddress() {
         List<Address> addressList = addressService.findAll();
+        return new ResponseEntity<>(addressList, HttpStatus.OK);
+    }
+
+    /* 사용자별 주소지 전체 조회 */
+    @GetMapping
+    public ResponseEntity<List<Address>> getAddressByUserId() {
+        log.info("사용자별 주소지 전체 조회");
+
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Long userId = userService.findUserIdByUsername(username);
+        List<Address> addressList = addressService.findByUserId(userId);
+
         return new ResponseEntity<>(addressList, HttpStatus.OK);
     }
 
@@ -40,9 +63,14 @@ public class AddressController {
     /* 기본 주소지 설정 */
     @PutMapping("/{addressId}/default")
     public ResponseEntity<Address> setDefaultAddress(@PathVariable Long addressId) throws Exception {
-        Long userId = 1L;
+        log.info("기본 주소지 설정");
+
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Long userId = userService.findUserIdByUsername(username);
+
         addressService.setDefault(userId, addressId);
         Address defaultAddress = addressService.findById(addressId);
+
         if (defaultAddress == null) {
             throw new Exception("기본 주소지 설정에 실패했습니다.");
         }
@@ -52,6 +80,8 @@ public class AddressController {
     /* 주소시 수정 */
     @PatchMapping("/{addressId}")
     public ResponseEntity<Address> updateAddress(@PathVariable Long addressId, @RequestBody AddressDTO addressDTO) throws Exception {
+        log.info("주소시 수정");
+
         Address updateAddress = addressService.update(addressId, addressDTO);
         if (updateAddress == null) {
             throw new Exception("주소지 수정에 실패했습니다.");
@@ -61,6 +91,7 @@ public class AddressController {
 
     /* 주소시 삭제 */
     @DeleteMapping("/{addressId}")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<Object> deleteAddress(@PathVariable Long addressId) throws ResourceNotFoundException {
         addressRepository.findById(addressId)
                         .orElseThrow(() -> new ResourceNotFoundException("Address not found with id : " + addressId));
