@@ -1,9 +1,6 @@
 package eliceproject.bookstore.cart;
 
 import eliceproject.bookstore.user.User;
-import eliceproject.bookstore.book.Book;
-import eliceproject.bookstore.cart.CartRequestDto;
-import eliceproject.bookstore.cart.CartItemResponseDto;
 
 import java.util.List;
 

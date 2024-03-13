@@ -1,58 +1,79 @@
 package eliceproject.bookstore.cart;
 
-import eliceproject.bookstore.cart.CartService;
 import eliceproject.bookstore.user.User;
 import eliceproject.bookstore.user.UserRepository;
+import eliceproject.bookstore.exception.UserNotFoundException;
+
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.catalina.connector.Response;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
+import org.springframework.security.core.Authentication;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import java.util.List;
+
 @Slf4j
 @RestController
-@RequiredArgsConstructor
-@RequestMapping("/Cart")
+@RequestMapping("/cart")
 public class CartController {
 
-    private final CartService cartService;
+    private final CartServiceImpl cartService;
     private final UserRepository userRepository;
 
-    @PostMapping("/carts")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Response create(@Valid @RequestBody CartRequestDto req) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User user = userRepository.findByUserId(authentication.getName()).orElseThrow(UserNotFoundException::new);
-        cartService.create(req, user);
-        return Response.success();
+    @Autowired
+    public CartController(CartServiceImpl cartService, UserRepository userRepository) {
+        this.cartService = cartService;
+        this.userRepository = userRepository;
     }
 
-    @GetMapping("/carts")
-    @ResponseStatus(HttpStatus.OK)
-    public Response findAll() {
+    @PostMapping("/cart")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<Void> create(@Valid @RequestBody CartRequestDto req) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User user = userRepository.findByUsername(authentication.getName()).orElseThrow(UserNotFoundException::new);
-        return Response.success(cartService.findAll(user));
+        User user = userRepository.findByUsername(authentication.getName());
+        if (user == null) {
+            throw new UserNotFoundException("User not found: " + authentication.getName());
+        }
+        cartService.create(req, user);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/cart")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<List<CartItemResponseDto>> findAll() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = userRepository.findByUsername(authentication.getName());
+        if (user == null) {
+            throw new UserNotFoundException("User not found: " + authentication.getName());
+        }
+        List<CartItemResponseDto> cartItems = cartService.findAll(user);
+        return ResponseEntity.ok().body(cartItems);
     }
 
     @DeleteMapping("/carts/{cartItemId}")
     @ResponseStatus(HttpStatus.OK)
-    public Response deleteById(@PathVariable("cartItemId") Long id) {
+    public ResponseEntity<Void> deleteById(@PathVariable("cartItemId") Long id) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User user = userRepository.findByUsername(authentication.getName()).orElseThrow(UserNotFoundException::new);
+        User user = userRepository.findByUsername(authentication.getName());
+        if (user == null) {
+            throw new UserNotFoundException("User not found: " + authentication.getName());
+        }
         cartService.deleteById(id, user);
-        return Response.success();
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping("/carts/buying")
     @ResponseStatus(HttpStatus.OK)
-    public Response buyingAll() {
+    public ResponseEntity<Void> buyingAll() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User user = userRepository.findByUsername(authentication.getName()).orElseThrow(UserNotFoundException::new);
+        User user = userRepository.findByUsername(authentication.getName());
+        if (user == null) {
+            throw new UserNotFoundException("User not found: " + authentication.getName());
+        }
         cartService.buyingAll(user);
-        return Response.success();
+        return ResponseEntity.ok().build();
     }
 }

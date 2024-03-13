@@ -9,9 +9,9 @@
 <body>
 
 <!--1. 헤더 넣기
-    2. 배송방법 넣기
-    3. sessionStorage로 결제페이지에 상품 넘겨주기(key, value)
-    4. 사진 이미지 넣기-->
+    2. sessionStorage로 결제페이지에 상품 넘겨주기(key(북id), value(수량))
+    3. 수량 +-버튼으로 변경 가능하도록 설정
+    4. 수량 조절 시 금액 변경이 가능하도록 하기-->
 
 <script>
     function updateTotalPrice() {
@@ -96,7 +96,7 @@
             <div class="cart-options">
                 <input type="checkbox" id="select-all">
                 <label for="select-all">전체선택</label>
-                <button class="delete-btn">선택삭제</button>
+                <button type ="button" class="delete-btn">선택삭제</button>
             </div>
             <hr>
 
@@ -114,9 +114,9 @@
                     </div>
                     <div class="item-actions">
                         <div class="item-quantity">
-                            <button>-</button>
+                            <button type ="button" >-</button>
                             <input type="number" value="1">
-                            <button>+</button>
+                            <button type ="button" >+</button>
                         </div>
                     </div>
                 </div>
@@ -134,9 +134,9 @@
                     </div>
                     <div class="item-actions">
                         <div class="item-quantity">
-                            <button>-</button>
+                            <button type ="button" >-</button>
                             <input type="number" value="2">
-                            <button>+</button>
+                            <button type ="button" >+</button>
                         </div>
                     </div>
                 </div>
@@ -154,9 +154,9 @@
                     </div>
                     <div class="item-actions">
                         <div class="item-quantity">
-                            <button>-</button>
+                            <button type ="button" >-</button>
                             <input type="number" value="1">
-                            <button>+</button>
+                            <button type ="button" >+</button>
                         </div>
                     </div>
                 </div>
@@ -182,7 +182,7 @@
                     <span class = "price-title"> 13,400 원</span>
                 </div>
             </div>
-            <button class="order-btn">주문하기</button>
+            <button type ="button" class="order-btn">주문하기</button>
         </div>
     </div>
 </div>
