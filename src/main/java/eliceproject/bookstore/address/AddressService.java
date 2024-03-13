@@ -21,4 +21,5 @@ public interface AddressService {
 
     void delete(Long addressId);
 
+    Address findByUserIdAndIsDefaultTrue(Long userId);
 }

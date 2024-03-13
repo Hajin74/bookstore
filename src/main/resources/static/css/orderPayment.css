@@ -125,3 +125,7 @@ body {
     justify-content: space-between;
     margin-bottom: 10px;
 }
+
+.order-book-img {
+    width: 150px;
+}

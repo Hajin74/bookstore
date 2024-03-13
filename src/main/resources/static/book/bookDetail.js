@@ -1,30 +1,39 @@
-document.addEventListener('DOMContentLoaded', () => {
-   getBook();
-});
+document.addEventListener('DOMContentLoaded', getBook);
 
-function getBook() {
+async function getBook() {
     const urlParams = new URLSearchParams(window.location.search);
     const bookId = urlParams.get('bookId');
+    await displayBookDetails(bookId);
 
-    getBookById(bookId);
+    const bookPayButton = document.querySelector(".book-payment-button");
+    bookPayButton.addEventListener("click", () => redirectToOrderPayment(bookId));
 }
 
-async function getBookById(bookId) {
-    const response = await fetch(`/api/book/${bookId}`);
-    const book = await response.json();
+async function displayBookDetails(bookId) {
+    const book = await fetchBookById(bookId);
+
+    updateElementTextContent(".book-detail-title", book.title);
+    updateElementTextContent(".book-detail-sub-title", book.subTitle);
+    updateElementTextContent(".book-detail-publisher", book.publisher);
+    updateElementTextContent(".book-detail-price", `${book.price}원`);
 
     const bookDetailImg = document.querySelector(".book-detail-img");
-    bookDetailImg.setAttribute("src", book['thumbnailUrl']);
+    bookDetailImg.setAttribute("src", book.thumbnailUrl);
+}
 
-    const bookDetailTitle = document.querySelector(".book-detail-title");
-    bookDetailTitle.innerHTML = book['title'];
+async function fetchBookById(bookId) {
+    const response = await fetch(`/api/book/${bookId}`);
+    return await response.json();
+}
 
-    const bookDetailSubTitle = document.querySelector(".book-detail-sub-title");
-    bookDetailSubTitle.innerHTML = book['subTitle'];
+function updateElementTextContent(selector, text) {
+    const element = document.querySelector(selector);
+    if (element) {
+        element.textContent = text;
+    }
+}
 
-    const bookDetailPublisher = document.querySelector(".book-detail-publisher");
-    bookDetailPublisher.innerHTML = book['publisher'];
-
-    const bookDetailPrice = document.querySelector(".book-detail-price");
-    bookDetailPrice.innerHTML = book['price'] + "원";
+function redirectToOrderPayment(bookId) {
+    const queryParams = new URLSearchParams({ bookId });
+    window.location.href = `/order/orderPayment.html?${queryParams.toString()}`;
 }

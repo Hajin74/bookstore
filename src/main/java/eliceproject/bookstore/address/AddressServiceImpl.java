@@ -40,6 +40,12 @@ public class AddressServiceImpl implements AddressService {
                 .orElseThrow(() -> new IllegalArgumentException("Address not found with id : " + addressId));
     }
 
+    @Transactional(readOnly = true)
+    @Override
+    public Address findByUserIdAndIsDefaultTrue(Long userId) {
+        return addressRepository.findByUserIdAndIsDefaultTrue(userId);
+    }
+
     @Transactional
     @Override
     public Address update(Long addressId, AddressDTO addressDTO) {

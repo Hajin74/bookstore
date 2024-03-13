@@ -1,10 +1,12 @@
 package eliceproject.bookstore.address;
 
 import eliceproject.bookstore.exception.ResourceNotFoundException;
+import eliceproject.bookstore.user.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,6 +20,7 @@ public class AddressController {
 
     private final AddressRepository addressRepository;
     private final AddressService addressService;
+    private final UserService userService;
 
     /* 주소지 등록 */
     @PostMapping
@@ -36,6 +39,17 @@ public class AddressController {
         return new ResponseEntity<>(addressList, HttpStatus.OK);
     }
 
+    /* 기본 배송지 조회 */
+    @GetMapping("/default")
+    public ResponseEntity<Address> getDefaultAddress() {
+        log.info("기본 배송지 조회");
+
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Long userId = userService.findUserIdByUsername(username);
+        Address defaultAddress = addressService.findByUserIdAndIsDefaultTrue(userId);
+
+        return new ResponseEntity<>(defaultAddress, HttpStatus.OK);
+    }
 
     /* 기본 주소지 설정 */
     @PutMapping("/{addressId}/default")
