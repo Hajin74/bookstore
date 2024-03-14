@@ -1,0 +1,48 @@
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.container h1 {
+    margin-bottom: 20px;
+}
+
+.book-item {
+    display: flex;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.book-item-info-wrap {
+    text-align: start;
+    padding: 10px;
+}
+
+.thumbnail {
+    width: 150px;
+    height: 200px;
+}
+
+#pagination {
+    margin-top: 20px;
+}
+
+#pagination button {
+    margin: 0 5px;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    background-color: #f0f0f0;
+}
+
+#pagination button:hover {
+    background-color: #e0e0e0;
+}
+
+.current-page {
+    background-color: #B0C2FF; /* 배경색 */
+    color: white; /* 글자색 */
+}

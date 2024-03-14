@@ -63,3 +63,7 @@
     align-items: center;
     justify-content: center;
 }
+
+.book-list-title {
+    text-align: center;
+}
