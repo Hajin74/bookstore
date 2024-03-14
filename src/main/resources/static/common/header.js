@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function (){
             </a>
             <nav>
                 <ul>
-                    <li><a href="#">장바구니</a></li>
+                    <li><a href="/cart/cart.html">장바구니</a></li>
                     <li><a href="/user/my-page.html">마이페이지</a></li>
                     <li id="logout"><a href="/">로그아웃</a></li>
                     <li>

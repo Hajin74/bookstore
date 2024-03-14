@@ -47,6 +47,7 @@
     display: block;
     align-items: center;
     height: 240px;
+    margin-bottom: 60px;
 }
 
 .main-wrap .default-wrap p {
