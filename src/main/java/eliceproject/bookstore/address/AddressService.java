@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface AddressService {
 
-    Address create(Address address);
+    Address create(Address address, Long userId);
 
     List<Address> findAll();
 

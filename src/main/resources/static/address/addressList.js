@@ -1,10 +1,40 @@
 document.addEventListener('DOMContentLoaded', () => {
-    getAllAddress();
+    getAllAddressByUser();
+    getDefaultAddress();
     setEventListeners();
 });
 
-function getDefaultAddress(defaultAddress) {
-    const defaultAddressWrap = document.querySelector('.default-address-wrap');
+async function getDefaultAddress() {
+    console.log("getDefaultAddress 메소드 호출");
+
+    const jwtToken = localStorage.getItem("token");
+    const headers = {
+        'Content-Type': 'application/json'
+    };
+    if (jwtToken !== null){
+        headers['Authorization'] = jwtToken;
+    }
+
+    const response = await fetch("/api/address/default", {headers});
+    const responseData = await response.json();
+
+    if (!responseData) {
+        console.log("기본 주소지가 없습니다.");
+        return;
+    }
+
+    if (response.ok) {
+        console.log("기본 주소지 조회에 성공했습니다.");
+        renderDefaultAddress(responseData);
+    } else {
+        console.error("기본 주소지 조회에 실패했습니다.");
+    }
+}
+
+function renderDefaultAddress(defaultAddress) {
+    console.log("renderDefaultAddress 메소드 호출");
+
+    const defaultAddressWrap = document.querySelector(".default-address-wrap");
     defaultAddressWrap.innerHTML = '';
 
     const defaultAddressHtml = `
@@ -17,14 +47,35 @@ function getDefaultAddress(defaultAddress) {
             <span>${defaultAddress['mainAddress']}</span>
         </div>
     `
-
     defaultAddressWrap.insertAdjacentHTML('beforeend', defaultAddressHtml);
 }
 
-async function getAllAddress() {
-    let defaultAddress;
-    const response = await fetch("/myroom/address");
-    const addressList = await response.json();
+async function getAllAddressByUser() {
+    console.log("getAllAddressByUser 메소드 호출");
+
+    const jwtToken = localStorage.getItem("token");
+    const headers = {
+        'Content-Type': 'application/json'
+    };
+    if (jwtToken !== null){
+        headers['Authorization'] = jwtToken;
+    }
+
+    const response = await fetch("/api/address", {headers});
+    if (response.ok) {
+        const addressList = await response.json();
+        console.log("주소지 조회에 성공했습니다.");
+        renderAllAddressByUser(addressList);
+    } else {
+        console.error("주소지 조회에 실패했습니다.");
+    }
+
+    setDefaultAddress();
+    updateAddressListeners();
+    deleteAddress();
+}
+
+function renderAllAddressByUser(addressList) {
     const addressListWrap = document.querySelector('.address-list-wrap');
     addressListWrap.innerHTML = '';
 
@@ -33,7 +84,6 @@ async function getAllAddress() {
         let defaultAddressBtn;
 
         if (address['default'] === true) {
-            defaultAddress = address;
             isDefaultSpan = '| <span>기본배송지</span>';
             defaultAddressBtn = '';
         } else {
@@ -59,24 +109,99 @@ async function getAllAddress() {
             </div>
         `
         addressListWrap.insertAdjacentHTML('beforeend', addressItemHtml);
-    })
-
-    getDefaultAddress(defaultAddress);
-    setDefaultAddress();
-    deleteAddress();
-    updateAddressListeners();
+    });
 }
 
+async function addAddress(address){
+    console.log("addAddress 메소드 호출");
+
+    const jwtToken = localStorage.getItem("token");
+    const headers = {
+        'Content-Type': 'application/json'
+    };
+    if (jwtToken !== null){
+        headers['Authorization'] = jwtToken;
+    }
+
+    const response = await fetch("/api/address", {method: 'POST', headers, body: JSON.stringify(address)});
+    if (response.ok) {
+        const createdAddress = await response.json();
+        console.log("주소지가 생성되었습니다:", createdAddress);
+    } else {
+        console.error("주소지 생성에 실패했습니다.");
+    }
+
+    getAllAddressByUser();
+}
+
+async function deleteAddress() {
+    const deleteButtons = document.querySelectorAll(".delete-address-btn");
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', async () => {
+            const addressIdElement = button.closest('.address-item-wrap').querySelector('#address-id');
+            const addressId = addressIdElement.textContent;
+
+            const jwtToken = localStorage.getItem("token");
+            const headers = {
+                'Content-Type': 'application/json'
+            };
+            if (jwtToken !== null){
+                headers['Authorization'] = jwtToken;
+            }
+
+            const response = await fetch(`/api/address/${addressId}`, {method: 'DELETE', headers});
+            if (response.ok) {
+                console.log("주소지 삭제 성공");
+            } else {
+                console.error("주소지 삭제 실패");
+            }
+
+            getAllAddressByUser();
+        });
+    });
+}
+
+async function setDefaultAddress() {
+    console.log("setDefaultAddress 메소드 호출");
+
+    const setDefaultAddressButtons = document.querySelectorAll(".set-default-address-btn");
+    setDefaultAddressButtons.forEach(button => {
+        button.addEventListener('click', async () => {
+            const addressIdElement = button.closest('.address-item-wrap').querySelector('#address-id');
+            const addressId = addressIdElement.textContent;
+
+            const jwtToken = localStorage.getItem("token");
+            const headers = {
+                'Content-Type': 'application/json'
+            };
+            if (jwtToken !== null){
+                headers['Authorization'] = jwtToken;
+            }
+
+            const response = await fetch(`/api/address/${addressId}/default`, {method: 'PUT', headers: headers});
+            if (response.ok) {
+                const defaultAddress = await response.json();
+                console.log("기본 주소지 설정 성공:", defaultAddress);
+                getDefaultAddress();
+            } else {
+                console.error("기본 주소지 설정 실패:", response.statusText);
+            }
+
+            getAllAddressByUser();
+        });
+    });
+}
 
 const editModal = document.querySelector('.edit-modal');
 const editCloseBtn = document.querySelector('.edit-close');
 const editSubmitBtn = document.querySelector('.edit-submit');
+
 editCloseBtn.addEventListener('click', () => {
     editModal.style.display = "none";
 });
 
 editSubmitBtn.addEventListener('click', () => {
-    console.log("edit-submit");
+    console.log("edit-submit 버튼");
 
     const editAddress = {
         addressName: document.getElementById("editAddressName").value,
@@ -88,22 +213,30 @@ editSubmitBtn.addEventListener('click', () => {
     console.log(editAddress);
 
     updateAddress(editAddressId, editAddress);
-
     editModal.style.display = "none";
 });
 
 async function updateAddress(addressId, editAddress) {
-    const response = await fetch(`/myroom/address/${addressId}`, {
-        method: "PATCH",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(editAddress)
-    })
+    console.log("updateAddress 메소드 호출");
 
+    const jwtToken = localStorage.getItem("token");
+    const headers = {
+        'Content-Type': 'application/json'
+    };
+    if (jwtToken !== null){
+        headers['Authorization'] = jwtToken;
+    }
+
+    const response = await fetch(`/api/address/${addressId}`, {method: 'PATCH', headers: headers, body: JSON.stringify(editAddress)});
+    if (response.ok) {
+        console.log("주소지 수정 성공:");
+    } else {
+        console.error("주소지 수정 실패:");
+    }
     const findAddress = await response.json();
     console.log(findAddress.addressName);
-    getAllAddress();
+
+    getAllAddressByUser();
 }
 
 
@@ -116,67 +249,6 @@ async function updateAddressListeners(){
             editAddressId = addressIdElement.textContent;
             console.log("수정 클릭", editAddressId);
             editModal.style.display = "block";
-        });
-    });
-}
-
-async function addAddress(address){
-    const response = await fetch("/myroom/address", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(address)
-    })
-
-    const createdAddress = await response.json();
-    console.log(createdAddress.addressName);
-    getAllAddress();
-}
-
-async function setDefaultAddress() {
-    const setDefaultAddressButtons = document.querySelectorAll(".set-default-address-btn");
-    setDefaultAddressButtons.forEach(button => {
-        button.addEventListener('click', async () => {
-            const addressIdElement = button.closest('.address-item-wrap').querySelector('#address-id');
-            const addressId = addressIdElement.textContent;
-
-            const response = await fetch(`/myroom/address/${addressId}/default`, {
-                method: 'PUT',
-            });
-
-            if (response.ok) {
-                const defaultAddress = await response.json();
-                console.log("기본 주소지 설정 성공:", defaultAddress);
-            } else {
-                console.error("기본 주소지 설정 실패:", response.statusText);
-            }
-
-            getAllAddress();
-        });
-    });
-}
-
-
-async function deleteAddress() {
-    const deleteButtons = document.querySelectorAll(".delete-address-btn");
-
-    deleteButtons.forEach(button => {
-        button.addEventListener('click', async () => {
-            const addressIdElement = button.closest('.address-item-wrap').querySelector('#address-id');
-            const addressId = addressIdElement.textContent;
-
-            const response = await fetch(`/myroom/address/${addressId}`, {
-                method: 'DELETE',
-            });
-
-            if (response.ok) {
-                console.log("주소지 삭제 성공");
-            } else {
-                console.error("주소지 삭제 실패");
-            }
-
-            getAllAddress();
         });
     });
 }

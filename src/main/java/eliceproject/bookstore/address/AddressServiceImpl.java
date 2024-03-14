@@ -1,5 +1,7 @@
 package eliceproject.bookstore.address;
 
+import eliceproject.bookstore.user.User;
+import eliceproject.bookstore.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -14,10 +16,14 @@ import java.util.Optional;
 public class AddressServiceImpl implements AddressService {
 
     private final AddressRepository addressRepository;
+    private final UserRepository userRepository;
 
     @Transactional
     @Override
-    public Address create(Address address) {
+    public Address create(Address address, Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + userId));
+        address.setUser(user);
         return addressRepository.save(address);
     }
 
