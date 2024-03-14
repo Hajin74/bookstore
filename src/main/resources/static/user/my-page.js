@@ -28,8 +28,6 @@ document.addEventListener("DOMContentLoaded", function (){
     })
     .catch(error=>{
         console.log('유저 정보를 가져오는데 실패했습니다.', error);
-        localStorage.removeItem("token");
-        window.location.href = "/";
     });
 
     fetch('/api/order', {
@@ -53,7 +51,27 @@ document.addEventListener("DOMContentLoaded", function (){
         })
         .catch(error=>{
             console.log('주문 정보를 가져오는데 실패했습니다.', error);
+        });
+
+    fetch('/api/address/default', {
+        method: 'GET',
+        headers: headers
+    })
+        .then(response=>{
+            if(!response.ok){
+                throw new Error('주소 정보를 가져오는데 실패했습니다.');
+            }
+            return response.json();
         })
+        .then(data=>{
+            console.log(data);
+            displayAddress(data);
+        })
+        .catch(error=>{
+            console.log('주소 정보를 가져오는데 실패했습니다.', error);
+            const addressMessage = document.getElementById("defaultAddress");
+            addressMessage.textContent = "기본 주소지가 없습니다.";
+        });
 })
 function displayOrderList(data) {
     const orderListContainer = document.getElementById("orderList");
@@ -152,4 +170,32 @@ function displayOrderList(data) {
 
     orderListContainer.appendChild(orderToDetail);
     orderListContainer.appendChild(orderContainer);
+}
+function displayAddress(data){
+    const address = document.getElementById("address");
+    const addressContainer = document.createElement("div");
+    const addressDiv = document.createElement('div');
+    const addressDetailDiv = document.createElement("div");
+    addressContainer.style.display = "flex";
+    addressDiv.style.marginRight = "150px";
+
+    const addressNameParagraph = document.createElement('p');
+    addressNameParagraph.textContent = '주소지: ' + data.addressName;
+    addressNameParagraph.style.fontSize = "15px";
+    addressDiv.appendChild(addressNameParagraph);
+
+    const phoneNumberParagraph = document.createElement('p');
+    phoneNumberParagraph.textContent = '전화번호: ' + data.phoneNumber;
+    phoneNumberParagraph.style.fontSize = "15px";
+    addressDiv.appendChild(phoneNumberParagraph);
+
+    const mainAddressParagraph = document.createElement('p');
+    mainAddressParagraph.textContent = '주소: ' + data.mainAddress + ' ' + data.subAddress + ' ['+data.zipCode+']';
+    mainAddressParagraph.style.fontSize = "20px";
+    addressDetailDiv.appendChild(mainAddressParagraph);
+
+    addressContainer.appendChild(addressDiv);
+    addressContainer.appendChild(addressDetailDiv);
+
+    address.appendChild(addressContainer);
 }

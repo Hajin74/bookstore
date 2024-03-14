@@ -91,3 +91,23 @@
     font-size: 12px;
     margin-left: 20px;
 }
+
+.main-wrap .default-wrap p {
+    margin-bottom: 0;
+}
+
+.main-wrap .default-wrap #address a {
+    margin-top: 0;
+    text-decoration: none;
+    color: #484848;
+    font-size: 12px;
+}
+
+.main-wrap .default-wrap #address p {
+    font-size: 14px;
+    margin-top: 15px;
+}
+
+.main-wrap .default-wrap #address #defaultAddress {
+    text-align: center;
+}

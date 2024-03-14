@@ -45,6 +45,8 @@ document.addEventListener("DOMContentLoaded", function (){
             })
             .catch(error=>{
                 console.log('유저 정보를 가져오는데 실패했습니다.', error);
+                localStorage.removeItem("token");
+                window.location.href = "/";
             });
     }
 })
