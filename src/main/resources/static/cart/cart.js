@@ -1,15 +1,10 @@
 //아이템 가져오기
 async function fetchCartItems(userId) {
     try {
-        const response = await fetch(`/api/carts?userId=${userId}`);
-        const carts = await response.json();
+        const response = await fetch(`/api/cart/byUserId/${userId}`);
+        const cart = await response.json();
 
-        let latestCartId = null;
-        if (carts.length > 0) {
-            latestCartId = carts.reduce((prev, current) =>
-                (new Date(prev.createdAt) > new Date(current.createdAt) ? prev : current)
-            ).id;
-        }
+        const latestCartId = cart ? cart.id : null;
 
         return latestCartId;
     } catch (error) {
@@ -65,9 +60,20 @@ async function populateCartItems(userId) {
     }
 }
 
-window.onload = function() {
-    const userId = 1;
-    populateCartItems(userId);
+window.onload = async function() {
+    try {
+        // userId 가져오기
+        const userId = await getUserId();
+
+        if (!userId) {
+            console.error('사용자 정보를 가져오는데 실패했습니다.');
+            return;
+        }
+
+        await populateCartItems(userId);
+    } catch (error) {
+        console.error('장바구니 아이템을 가져오는 중에 오류가 발생했습니다:', error);
+    }
 };
 
 //총 구매가격 업데이트
@@ -116,9 +122,9 @@ document.querySelectorAll('.item-actions button').forEach(button => {
 //세션에 장바구니 정보 저장
 async function storeCartItemsToSessionStorage(userId) {
     try {
-        const carts = await getAllCartsByUserId(userId);
+        const cart = await getAllCartsByUserId(userId);
 
-        const cartId = getLatestCartId(carts);
+        const cartId = getLatestCartId(cart);
 
         if (!cartId) {
             console.error('장바구니가 비었습니다.');
@@ -129,7 +135,7 @@ async function storeCartItemsToSessionStorage(userId) {
         const cartItems = await response.json();
 
         cartItems.forEach(item => {
-            sessionStorage.setItem(`cart.${item.book_id}`, item.quantity);
+            sessionStorage.setItem(`cart.${item.bookId}`, item.quantity);
         });
 
     } catch (error) {
@@ -140,9 +146,10 @@ async function storeCartItemsToSessionStorage(userId) {
 
 async function getAllCartsByUserId(userId) {
     try {
-        const response = await fetch(`/api/carts?userId=${userId}`);
-        const carts = await response.json();
-        return carts;
+        const response = await fetch(`/api/cart?userId=${userId}`);
+        const cart = await response.json();
+        return cart;
+
     } catch (error) {
         console.error('모든 장바구니를 가져오는데 실패했습니다.', error);
         throw error;
@@ -155,10 +162,20 @@ function goToCheckoutPage() {
 }
 
 //주문버튼 이벤트
-document.querySelector('.order-btn').addEventListener('click', () => {
-    const userId = 1;
+document.querySelector('.order-btn').addEventListener('click', async () => {
+    try {
+        // userId 가져오기
+        const userId = await getUserId();
 
-    storeCartItemsToSessionStorage(userId);
+        if (!userId) {
+            console.error('사용자 정보를 가져오는데 실패했습니다.');
+            return;
+        }
 
-    goToCheckoutPage();
+        storeCartItemsToSessionStorage(userId);
+
+        goToCheckoutPage();
+    } catch (error) {
+        console.error('주문을 생성하는 중에 오류가 발생했습니다:', error);
+    }
 });
