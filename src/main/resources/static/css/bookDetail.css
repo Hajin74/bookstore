@@ -12,7 +12,7 @@
 }
 
 .book-detail-wrap {
-    margin: 0 100px;
+    margin: 0 180px;
     padding: 80px 0;
     display: flex;
     justify-content: space-between;
@@ -25,16 +25,31 @@
 
 .book-detail-img {
     width: 90%;
+    border-radius: 10px;
+    border: 1px solid #D9D9D9;
 }
 
 .book-detail-info-wrap {
     width: 70%;
 }
 
+.book-detail-contents {
+    padding: 5px 0;
+}
+
+.book-detail-writer-wrap {
+    margin-bottom: 10px;
+}
+
 .book-detail-price-wrap {
     border-top: 1px solid #D9D9D9;
-    margin-top: 20px;
-    padding-top: 20px;
+    padding: 20px 0;
+    border-bottom: 1px solid #D9D9D9;
+}
+
+.book-detail-price {
+    font-weight: bold;
+    font-size: 20px;
 }
 
 .book-detail-price-wrap span {
@@ -56,6 +71,10 @@
 
 .book-detail-gift-wrap p:first-child {
     margin-right: 10px;
+}
+
+.book-detail-button-wrap {
+    padding: 10px 0;
 }
 
 .book-detail-button-wrap button:first-child {

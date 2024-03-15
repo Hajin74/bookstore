@@ -20,7 +20,8 @@ async function displayBookDetails(bookId) {
     updateElementTextContent(".book-detail-contents", book.contents);
     updateElementTextContent(".book-detail-writer", book.writer);
     updateElementTextContent(".book-detail-publisher", book.publisher);
-    updateElementTextContent(".book-detail-price", `${book.price}원`);
+    updateElementTextContent(".book-detail-price", `${Number(book.price).toLocaleString()}원`);
+
 
     const bookDetailImg = document.querySelector(".book-detail-img");
     bookDetailImg.setAttribute("src", book.thumbnailUrl);
