@@ -77,6 +77,10 @@
     padding: 10px 0;
 }
 
+.book-detail-button-wrap button {
+    cursor: pointer;
+}
+
 .book-detail-button-wrap button:first-child {
     background-color: #B0C2FF;
     border: none;
