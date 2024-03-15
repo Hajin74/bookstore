@@ -21,6 +21,7 @@
 
 .side-wrap .nickname {
     margin-bottom: 10px;
+    /*font-weight: bold;*/
 }
 
 .side-wrap button {
@@ -46,7 +47,7 @@
     padding: 30px;
     display: block;
     align-items: center;
-    height: 240px;
+    /*height: 240px;*/
     margin-bottom: 60px;
 }
 
@@ -93,22 +94,18 @@
     margin-left: 20px;
 }
 
-.main-wrap .default-wrap p {
-    margin-bottom: 0;
-}
-
-.main-wrap .default-wrap #address a {
-    margin-top: 0;
+.move {
     text-decoration: none;
     color: #484848;
     font-size: 12px;
 }
 
-.main-wrap .default-wrap #address p {
-    font-size: 14px;
-    margin-top: 15px;
+#address {
+    margin-top: 20px;
 }
 
-.main-wrap .default-wrap #address #defaultAddress {
-    text-align: center;
+#orderList {
+    margin-top: 20px;
 }
+
+
