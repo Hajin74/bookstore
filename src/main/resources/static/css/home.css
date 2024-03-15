@@ -19,7 +19,7 @@
 }
 
 .contents-wrap {
-    padding: 50px 100px;
+    padding: 50px 140px;
     border-bottom: 1px solid #D9D9D9;
 }
 
@@ -92,9 +92,9 @@
     overflow-y: hidden;
 }
 
-
 .best-seller-item img,
 .today-book-item img {
     max-width: 100%;
     margin: 10px 0;
 }
+
