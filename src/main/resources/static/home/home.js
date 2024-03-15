@@ -34,9 +34,10 @@ function renderTodayBookData(data) {
         console.log(todayBook);
         const bookDetailLink = `/book/bookDetail.html?bookId=${todayBook['id']}`;
         const todayBookHtml = `
-            <div class="today-book-item">
+            <div class="today-book-item" onclick="location.href='${bookDetailLink}'">
                 <img src="${todayBook['thumbnailUrl']}"  alt="책 표지"/>
-                <p><a href="${bookDetailLink}">${todayBook['title']}</a></p>
+                <p>${todayBook['title']}</p>
+                <span>${todayBook['writer']}</span>
             </div>
         `;
 
@@ -55,9 +56,10 @@ function renderBestSellerData(data) {
         console.log(bestSeller);
         const bookDetailLink = `/book/bookDetail.html?bookId=${bestSeller['id']}`;
         const bestSellerHtml = `
-            <div class="today-book-item">
+            <div class="best-seller-item" onclick="location.href='${bookDetailLink}'" >
                 <img src="${bestSeller['thumbnailUrl']}"  alt="책 표지"/>
-                <p><a href="${bookDetailLink}">${bestSeller['title']}</a></p>
+                <p>${bestSeller['title']}</p>
+                <span>${bestSeller['writer']}</span>
             </div>
         `;
 

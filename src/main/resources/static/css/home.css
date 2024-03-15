@@ -5,19 +5,17 @@
 
 .banner-wrap {
     width: 100%;
-    height: 300px;
     color: white;
     font-size: 40px;
     background-color: white;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0px 0 30px 0;
+    border-bottom: 1px solid #D9D9D9;
 }
 
 .banner-wrap img {
     width: 100%;
-    height: 400px;
 }
 
 .contents-wrap {
@@ -40,11 +38,7 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
-    margin: 30px 0 100px 0;
-}
-
-.today-book-item {
-    text-align: center;
+    margin: 20px 0 100px 0;
 }
 
 .best-seller-title {
@@ -55,11 +49,13 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
-    margin: 30px 0 100px 0;
+    margin: 20px 0 100px 0;
 }
 
-.best-seller-item {
-    text-align: center;
+.best-seller-item,
+.today-book-item {
+    cursor: pointer;
+    width: 210px;
 }
 
 .footer {
@@ -72,10 +68,33 @@
 
 .book-list-title {
     text-align: start;
-    margin:  20px 0;
+    margin-bottom: 30px;
 }
 
 .book-list-title a {
     text-decoration: none; /* 밑줄 제거 */
     color: black;
+}
+
+.best-seller-item p,
+.today-book-item p {
+    max-width: 100%;
+    font-weight: bold;
+    font-size: 17px;
+    padding: 3px 7px;
+    overflow-y: hidden;
+}
+
+.best-seller-item span,
+.today-book-item span {
+    max-width: 100%;
+    padding: 0 7px;
+    overflow-y: hidden;
+}
+
+
+.best-seller-item img,
+.today-book-item img {
+    max-width: 100%;
+    margin: 10px 0;
 }

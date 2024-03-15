@@ -7,6 +7,9 @@ async function getBook() {
 
     const bookPayButton = document.querySelector(".book-payment-button");
     bookPayButton.addEventListener("click", () => redirectToOrderPayment(bookId));
+
+    const bookCartButton = document.querySelector(".book-cart-button");
+    bookCartButton.addEventListener("click", () => addCart(bookId));
 }
 
 async function displayBookDetails(bookId) {
@@ -38,4 +41,24 @@ function updateElementTextContent(selector, text) {
 function redirectToOrderPayment(bookId) {
     const queryParams = new URLSearchParams({ bookId });
     window.location.href = `/order/orderPayment.html?${queryParams.toString()}`;
+}
+
+function addCart(bookId) {
+    console.log("addCart 메소드 호출");
+    const book = {"bookId": bookId, "quantity": 1};
+    fetchAddCart(book);
+}
+
+async function fetchAddCart(book) {
+    console.log("fetchAddCart 메소드 호출");
+    const jwtToken = localStorage.getItem("token");
+    const headers = {
+        'Content-Type': 'application/json'
+    };
+    if (jwtToken !== null){
+        headers['Authorization'] = jwtToken;
+    }
+
+    const response = await fetch( '/cart/cart', {method: 'POST', headers, body: JSON.stringify(book)});
+    return await response.json();
 }
